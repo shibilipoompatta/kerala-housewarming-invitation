@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Griha Pravesham Invitation</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0005;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Lato', 'Georgia', serif;
+      overflow-x: hidden;
+    }
+
+    /* Particle canvas */
+    #particles-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .card-wrapper {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Outer glow border */
+    .card-outer {
+      border-radius: 20px;
+      padding: 3px;
+      background: linear-gradient(135deg, #c9a227, #f0d060, #c9a227, #8b5e0a, #f0d060, #c9a227);
+      background-size: 300% 300%;
+      animation: shimmerBorder 4s linear infinite;
+      box-shadow:
+        0 0 40px rgba(201,162,39,0.6),
+        0 0 80px rgba(201,162,39,0.3),
+        0 0 120px rgba(201,162,39,0.15);
+    }
+
+    @keyframes shimmerBorder {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .card-inner {
+      border-radius: 18px;
+      background: linear-gradient(160deg, #1a0010 0%, #0d0008 30%, #130010 60%, #0a0005 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Kerala mural-style background art */
+    .card-inner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(201,162,39,0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(201,162,39,0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 0%, rgba(255,200,50,0.05) 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+    /* Top decorative arch */
+    .arch-top {
+      width: 100%;
+      text-align: center;
+      padding: 30px 20px 10px;
+      position: relative;
+    }
+
+    .diya-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 10px;
+      animation: diwaFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes diwaFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .diya {
+      font-size: 32px;
+      filter: drop-shadow(0 0 8px #ffcc00) drop-shadow(0 0 20px #ff8800);
+      animation: flicker 1.5s ease-in-out infinite alternate;
+    }
+    .diya:nth-child(2) { animation-delay: 0.3s; font-size: 42px; }
+    .diya:nth-child(3) { animation-delay: 0.6s; }
+
+    @keyframes flicker {
+      0% { filter: drop-shadow(0 0 8px #ffcc00) drop-shadow(0 0 20px #ff8800); transform: scale(1); }
+      100% { filter: drop-shadow(0 0 14px #ffdd00) drop-shadow(0 0 30px #ffaa00) brightness(1.2); transform: scale(1.05); }
+    }
+
+    /* Decorative divider */
+    .ornament-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 8px 20px;
+    }
+    .ornament-line .line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #c9a227, transparent);
+    }
+    .ornament-line .diamond {
+      color: #c9a227;
+      font-size: 14px;
+    }
+
+    /* Header text */
+    .invite-label {
+      text-align: center;
+      color: #c9a227;
+      font-size: 11px;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      font-family: 'Cinzel', serif;
+      margin-bottom: 6px;
+      opacity: 0.85;
+    }
+
+    .main-title {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 38px;
+      font-weight: 700;
+      font-style: italic;
+      color: #fff;
+      line-height: 1.1;
+      text-shadow:
+        0 0 20px rgba(201,162,39,0.8),
+        0 2px 4px rgba(0,0,0,0.5);
+      margin-bottom: 4px;
+    }
+    .main-title span {
+      color: #f0d060;
+    }
+
+    .subtitle-kerala {
+      text-align: center;
+      color: #c9a227;
+      font-size: 15px;
+      letter-spacing: 3px;
+      font-family: 'Cinzel', serif;
+      margin-bottom: 4px;
+      opacity: 0.9;
+    }
+
+    .malayalam-text {
+      text-align: center;
+      color: #f0d060;
+      font-size: 22px;
+      margin: 8px 0;
+      text-shadow: 0 0 15px rgba(201,162,39,0.6);
+      letter-spacing: 2px;
+    }
+
+    /* Host section */
+    .host-section {
+      margin: 20px 30px;
+      text-align: center;
+      padding: 24px 30px;
+      border: 1px solid rgba(201,162,39,0.3);
+      border-radius: 12px;
+      background: rgba(201,162,39,0.04);
+      position: relative;
+    }
+
+    .host-section::before, .host-section::after {
+      content: '✦';
+      position: absolute;
+      color: #c9a227;
+      font-size: 18px;
+      opacity: 0.5;
+    }
+    .host-section::before { top: -10px; left: 20px; background: #0d0008; padding: 0 6px; }
+    .host-section::after { top: -10px; right: 20px; background: #0d0008; padding: 0 6px; }
+
+    .honours-text {
+      color: rgba(201,162,39,0.75);
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      font-family: 'Cinzel', serif;
+    }
+
+    .host-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 0 20px rgba(201,162,39,0.5);
+      line-height: 1.2;
+    }
+
+    .host-title {
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      color: #c9a227;
+      letter-spacing: 2px;
+      margin-top: 4px;
+    }
+
+    .host-designation {
+      color: rgba(255,255,255,0.6);
+      font-size: 12px;
+      margin-top: 6px;
+      letter-spacing: 1px;
+    }
+
+    /* Invitation text */
+    .invite-text {
+      text-align: center;
+      color: rgba(255,255,255,0.75);
+      font-size: 13.5px;
+      line-height: 1.8;
+      margin: 6px 30px 20px;
+      font-style: italic;
+    }
+
+    .invite-text strong {
+      color: #f0d060;
+      font-style: normal;
+    }
+
+    /* Event details grid */
+    .event-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 0 30px 20px;
+    }
+
+    .detail-card {
+      background: rgba(201,162,39,0.06);
+      border: 1px solid rgba(201,162,39,0.2);
+      border-radius: 10px;
+      padding: 16px 14px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .detail-card:hover {
+      background: rgba(201,162,39,0.12);
+      border-color: rgba(201,162,39,0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(201,162,39,0.15);
+    }
+
+    .detail-icon {
+      font-size: 22px;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .detail-label {
+      font-size: 9px;
+      letter-spacing: 3px;
+      color: #c9a227;
+      text-transform: uppercase;
+      font-family: 'Cinzel', serif;
+      margin-bottom: 4px;
+    }
+
+    .detail-value {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .detail-sub {
+      color: rgba(255,255,255,0.5);
+      font-size: 11px;
+      margin-top: 2px;
+    }
+
+    /* Venue span full width */
+    .detail-card.full-width {
+      grid-column: 1 / -1;
+    }
+
+    /* Pooja timing section */
+    .pooja-section {
+      margin: 0 30px 20px;
+      padding: 16px 20px;
+      background: linear-gradient(135deg, rgba(201,162,39,0.1) 0%, rgba(139,94,10,0.08) 100%);
+      border: 1px solid rgba(201,162,39,0.25);
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .pooja-title {
+      color: #f0d060;
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .pooja-schedule {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .schedule-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .schedule-time {
+      color: #f0d060;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: 'Cinzel', serif;
+    }
+
+    .schedule-event {
+      color: rgba(255,255,255,0.65);
+      font-size: 11px;
+    }
+
+    .schedule-dot {
+      width: 4px; height: 4px;
+      background: #c9a227;
+      border-radius: 50%;
+      align-self: center;
+      margin-top: 2px;
+    }
+
+    /* RSVP section */
+    .rsvp-section {
+      margin: 0 30px 24px;
+      text-align: center;
+    }
+
+    .rsvp-label {
+      color: rgba(255,255,255,0.5);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-family: 'Cinzel', serif;
+      margin-bottom: 10px;
+    }
+
+    .rsvp-contact {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .rsvp-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #c9a227;
+      font-size: 13px;
+    }
+
+    /* Bottom motif */
+    .bottom-motif {
+      text-align: center;
+      padding: 16px 20px 24px;
+      border-top: 1px solid rgba(201,162,39,0.15);
+    }
+
+    .kolam-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .kolam-dot {
+      width: 6px; height: 6px;
+      background: rgba(201,162,39,0.4);
+      border-radius: 50%;
+    }
+    .kolam-dot.large {
+      width: 10px; height: 10px;
+      background: rgba(201,162,39,0.7);
+      box-shadow: 0 0 8px rgba(201,162,39,0.5);
+    }
+
+    .footer-quote {
+      color: rgba(255,255,255,0.4);
+      font-size: 11px;
+      font-style: italic;
+      letter-spacing: 1px;
+    }
+
+    /* Floating petals */
+    .petal {
+      position: absolute;
+      pointer-events: none;
+      animation: petalFall linear infinite;
+      opacity: 0.7;
+      font-size: 14px;
+      z-index: 1;
+    }
+
+    @keyframes petalFall {
+      0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.7; }
+      90% { opacity: 0.5; }
+      100% { transform: translateY(900px) rotate(360deg); opacity: 0; }
+    }
+
+    /* Corner ornaments */
+    .corner-ornament {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      pointer-events: none;
+    }
+    .corner-ornament svg { width: 100%; height: 100%; }
+    .co-tl { top: 8px; left: 8px; }
+    .co-tr { top: 8px; right: 8px; transform: scaleX(-1); }
+    .co-bl { bottom: 8px; left: 8px; transform: scaleY(-1); }
+    .co-br { bottom: 8px; right: 8px; transform: scale(-1); }
+
+    .advocate-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(201,162,39,0.1);
+      border: 1px solid rgba(201,162,39,0.4);
+      border-radius: 20px;
+      padding: 4px 14px;
+      margin-top: 8px;
+    }
+
+    .advocate-badge span {
+      color: #c9a227;
+      font-size: 11px;
+      letter-spacing: 2px;
+      font-family: 'Cinzel', serif;
+    }
+
+    /* Countdown timer */
+    .countdown-section {
+      margin: 0 30px 20px;
+      text-align: center;
+    }
+
+    .countdown-label {
+      color: rgba(201,162,39,0.75);
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      font-family: 'Cinzel', serif;
+      margin-bottom: 10px;
+    }
+
+    .countdown-boxes {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .count-box {
+      background: rgba(201,162,39,0.08);
+      border: 1px solid rgba(201,162,39,0.25);
+      border-radius: 8px;
+      padding: 10px 14px;
+      min-width: 58px;
+    }
+
+    .count-num {
+      color: #f0d060;
+      font-size: 22px;
+      font-weight: 700;
+      font-family: 'Cinzel', serif;
+      line-height: 1;
+      display: block;
+    }
+
+    .count-unit {
+      color: rgba(255,255,255,0.4);
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: block;
+      margin-top: 4px;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-in {
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .delay-2 { animation-delay: 0.2s; opacity: 0; }
+    .delay-3 { animation-delay: 0.3s; opacity: 0; }
+    .delay-4 { animation-delay: 0.4s; opacity: 0; }
+    .delay-5 { animation-delay: 0.5s; opacity: 0; }
+    .delay-6 { animation-delay: 0.6s; opacity: 0; }
+
+    @media (max-width: 480px) {
+      .main-title { font-size: 28px; }
+      .host-name { font-size: 22px; }
+      .event-details { grid-template-columns: 1fr; }
+      .detail-card.full-width { grid-column: auto; }
+      .host-section, .event-details, .pooja-section, .rsvp-section, .countdown-section { margin-left: 16px; margin-right: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<div class="card-wrapper">
+  <div class="card-outer">
+    <div class="card-inner" id="mainCard">
+
+      <!-- Corner ornaments -->
+      <div class="corner-ornament co-tl">
+        <svg viewBox="0 0 60 60" fill="none">
+          <path d="M5,5 Q5,30 30,30 Q5,30 5,55" stroke="#c9a227" stroke-width="1" fill="none" opacity="0.5"/>
+          <path d="M5,5 Q30,5 30,30 Q30,5 55,5" stroke="#c9a227" stroke-width="1" fill="none" opacity="0.5"/>
+          <circle cx="5" cy="5" r="3" fill="#c9a227" opacity="0.8"/>
+          <circle cx="30" cy="30" r="2" fill="#c9a227" opacity="0.4"/>
+        </svg>
+      </div>
+      <div class="corner-ornament co-tr">
+        <svg viewBox="0 0 60 60" fill="none">
+          <path d="M5,5 Q5,30 30,30 Q5,30 5,55" stroke="#c9a227" stroke-width="1" fill="none" opacity="0.5"/>
+          <path d="M5,5 Q30,5 30,30 Q30,5 55,5" stroke="#c9a227" stroke-width="1" fill="none" opacity="0.5"/>
+          <circle cx="5" cy="5" r="3" fill="#c9a227" opacity="0.8"/>
+          <circle cx="30" cy="30" r="2" fill="#c9a227" opacity="0.4"/>
+        </svg>
+      </div>
+      <div class="corner-ornament co-bl">
+        <svg viewBox="0 0 60 60" fill="none">
+          <path d="M5,5 Q5,30 30,30 Q5,30 5,55" stroke="#c9a227" stroke-width="1" fill="none" opacity="0.5"/>
+          <path d="M5,5 Q30,5 30,30 Q30,5 55,5" stroke="#c9a227" stroke-width="1" fill="none" opacity="0.5"/>
+          <circle cx="5" cy="5" r="3" fill="#c9a227" opacity="0.8"/>
+          <circle cx="30" cy="30" r="2" fill="#c9a227" opacity="0.4"/>
+        </svg>
+      </div>
+      <div class="corner-ornament co-br">
+        <svg viewBox="0 0 60 60" fill="none">
+          <path d="M5,5 Q5,30 30,30 Q5,30 5,55" stroke="#c9a227" stroke-width="1" fill="none" opacity="0.5"/>
+          <path d="M5,5 Q30,5 30,30 Q30,5 55,5" stroke="#c9a227" stroke-width="1" fill="none" opacity="0.5"/>
+          <circle cx="5" cy="5" r="3" fill="#c9a227" opacity="0.8"/>
+          <circle cx="30" cy="30" r="2" fill="#c9a227" opacity="0.4"/>
+        </svg>
+      </div>
+
+      <!-- Header: Diya row -->
+      <div class="arch-top animate-in delay-1">
+        <div class="diya-row">
+          <span class="diya">🪔</span>
+          <span class="diya">🪔</span>
+          <span class="diya">🪔</span>
+        </div>
+        <div class="invite-label">— auspicious invitation —</div>
+        <div class="main-title">Griha <span>Pravesham</span></div>
+        <div class="subtitle-kerala">✦ &nbsp; H O U S E W A R M I N G &nbsp; ✦</div>
+        <div class="malayalam-text">ഗൃഹ പ്രവേശം</div>
+      </div>
+
+      <div class="ornament-line animate-in delay-2">
+        <div class="line"></div>
+        <span class="diamond">❖</span>
+        <div class="line"></div>
+      </div>
+
+      <!-- Host Section -->
+      <div class="host-section animate-in delay-2">
+        <div class="honours-text">With the blessings of the Almighty</div>
+        <div class="honours-text" style="margin-bottom:14px;">We joyfully announce the Griha Pravesham of</div>
+        <div class="host-name">Adv. Krishnakumar Menon</div>
+        <div class="host-title">& Family</div>
+        <div class="host-designation">Senior Advocate, Kerala High Court</div>
+        <div style="margin-top:10px;">
+          <div class="advocate-badge">
+            <span>⚖</span>
+            <span>Bar Council of Kerala — Member</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Invite text -->
+      <div class="invite-text animate-in delay-3">
+        We are delighted to invite you to grace the auspicious occasion of our
+        <strong>Griha Pravesham</strong> with your presence, blessings, and warmth.
+        Your company will make our new home truly complete.
+      </div>
+
+      <!-- Event Details -->
+      <div class="event-details animate-in delay-3">
+        <div class="detail-card">
+          <span class="detail-icon">📅</span>
+          <div class="detail-label">Date</div>
+          <div class="detail-value">Sunday</div>
+          <div class="detail-value" style="color:#f0d060; font-size:18px; font-family:'Cinzel',serif;">30 Nov 2026</div>
+          <div class="detail-sub">Vrishchikam — Karthika Nakshatra</div>
+        </div>
+        <div class="detail-card">
+          <span class="detail-icon">⏰</span>
+          <div class="detail-label">Muhurtham</div>
+          <div class="detail-value" style="color:#f0d060; font-size:20px; font-family:'Cinzel',serif;">6:15 AM</div>
+          <div class="detail-sub">Auspicious Entry</div>
+          <div class="detail-sub">Lunch reception from 11:00 AM</div>
+        </div>
+        <div class="detail-card full-width">
+          <span class="detail-icon">📍</span>
+          <div class="detail-label">Venue</div>
+          <div class="detail-value">"Menon Bhavanam" — Krishnakripa</div>
+          <div class="detail-sub" style="margin-top:4px; font-size:12px; color:rgba(240,208,96,0.7);">
+            Thondayad – Mavoor Road, Near Guruvayurappan Temple<br>
+            Kozhikode (Calicut) — 673 017, Kerala
+          </div>
+        </div>
+      </div>
+
+      <!-- Pooja Schedule -->
+      <div class="pooja-section animate-in delay-4">
+        <div class="pooja-title">🌸 &nbsp; Programme Schedule &nbsp; 🌸</div>
+        <div class="pooja-schedule">
+          <div class="schedule-item">
+            <span class="schedule-time">6:15 AM</span>
+            <span class="schedule-event">Griha Pravesh Muhurtham</span>
+          </div>
+          <div class="schedule-dot" style="margin-top:8px;"></div>
+          <div class="schedule-item">
+            <span class="schedule-time">7:30 AM</span>
+            <span class="schedule-event">Ganapathi Homam & Pooja</span>
+          </div>
+          <div class="schedule-dot" style="margin-top:8px;"></div>
+          <div class="schedule-item">
+            <span class="schedule-time">9:00 AM</span>
+            <span class="schedule-event">Sadhya (Kerala Feast)</span>
+          </div>
+          <div class="schedule-dot" style="margin-top:8px;"></div>
+          <div class="schedule-item">
+            <span class="schedule-time">11:00 AM</span>
+            <span class="schedule-event">Reception & Blessings</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Countdown Timer -->
+      <div class="countdown-section animate-in delay-4">
+        <div class="countdown-label">🕯️ &nbsp; Counting down to the auspicious day &nbsp; 🕯️</div>
+        <div class="countdown-boxes">
+          <div class="count-box">
+            <span class="count-num" id="cd-days">16</span>
+            <span class="count-unit">Days</span>
+          </div>
+          <div class="count-box">
+            <span class="count-num" id="cd-hours">00</span>
+            <span class="count-unit">Hours</span>
+          </div>
+          <div class="count-box">
+            <span class="count-num" id="cd-mins">00</span>
+            <span class="count-unit">Mins</span>
+          </div>
+          <div class="count-box">
+            <span class="count-num" id="cd-secs">00</span>
+            <span class="count-unit">Secs</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RSVP -->
+      <div class="rsvp-section animate-in delay-5">
+        <div class="ornament-line" style="margin-bottom:16px;">
+          <div class="line"></div>
+          <span class="diamond" style="color:#c9a227; font-size:12px;">❖</span>
+          <div class="line"></div>
+        </div>
+        <div class="rsvp-label">Kindly confirm your presence</div>
+        <div class="rsvp-contact">
+          <div class="rsvp-item">📞 <span>+91 98470 00001</span></div>
+          <div class="rsvp-item">📱 <span>+91 98470 00002</span></div>
+        </div>
+        <div style="margin-top:10px; color:rgba(255,255,255,0.35); font-size:11px; font-style:italic;">
+          Your blessings are our greatest gift
+        </div>
+      </div>
+
+      <!-- Bottom motif -->
+      <div class="bottom-motif animate-in delay-6">
+        <div class="kolam-row">
+          <div class="kolam-dot"></div>
+          <div class="kolam-dot"></div>
+          <div class="kolam-dot large"></div>
+          <div style="color:#c9a227; font-size:18px; opacity:0.7;">🌺</div>
+          <div class="kolam-dot large"></div>
+          <div class="kolam-dot"></div>
+          <div class="kolam-dot"></div>
+        </div>
+        <div class="footer-quote">"May every corner of this home be filled with love, light, and laughter"</div>
+        <div style="margin-top:8px; color:rgba(201,162,39,0.4); font-size:10px; letter-spacing:3px; font-family:'Cinzel',serif;">
+          OM NAMAH SHIVAYA &nbsp; ✦ &nbsp; SUBHAM
+        </div>
+      </div>
+
+    </div><!-- end card-inner -->
+  </div><!-- end card-outer -->
+</div><!-- end card-wrapper -->
+
+<script>
+  // ── Particle canvas: gold sparkles ──────────────────────────────────
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  function createParticle() {
+    return {
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: Math.random() * 2.5 + 0.5,
+      speedX: (Math.random() - 0.5) * 0.4,
+      speedY: (Math.random() - 0.5) * 0.4,
+      opacity: Math.random() * 0.6 + 0.1,
+      fadeSpeed: Math.random() * 0.005 + 0.002,
+      fadeDir: 1,
+      color: Math.random() > 0.5 ? '#c9a227' : '#f0d060'
+    };
+  }
+
+  for (let i = 0; i < 80; i++) {
+    particles.push(createParticle());
+  }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.x += p.speedX;
+      p.y += p.speedY;
+      p.opacity += p.fadeSpeed * p.fadeDir;
+      if (p.opacity >= 0.7 || p.opacity <= 0.05) p.fadeDir *= -1;
+      if (p.x < 0 || p.x > canvas.width || p.y < 0 || p.y > canvas.height) {
+        p.x = Math.random() * canvas.width;
+        p.y = Math.random() * canvas.height;
+      }
+      ctx.save();
+      ctx.globalAlpha = p.opacity;
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    });
+    requestAnimationFrame(animateParticles);
+  }
+  animateParticles();
+
+  // ── Floating flower petals ───────────────────────────────────────────
+  const petals = ['🌸', '🌺', '🌼', '✿', '❀'];
+  const cardEl = document.getElementById('mainCard');
+
+  function spawnPetal() {
+    const p = document.createElement('span');
+    p.className = 'petal';
+    p.textContent = petals[Math.floor(Math.random() * petals.length)];
+    const dur = 6000 + Math.random() * 6000;
+    const left = 5 + Math.random() * 90;
+    p.style.cssText = `
+      left: ${left}%;
+      top: -20px;
+      animation-duration: ${dur}ms;
+      animation-delay: ${Math.random() * 3000}ms;
+    `;
+    cardEl.appendChild(p);
+    setTimeout(() => p.remove(), dur + 3500);
+  }
+
+  for (let i = 0; i < 6; i++) setTimeout(spawnPetal, i * 800);
+  setInterval(spawnPetal, 2500);
+
+  // ── Countdown Timer ──────────────────────────────────────────────────
+  const eventDate = new Date('2026-11-30T06:15:00+05:30');
+
+  function updateCountdown() {
+    const now = new Date();
+    const diff = eventDate - now;
+    if (diff <= 0) {
+      document.getElementById('cd-days').textContent = '00';
+      document.getElementById('cd-hours').textContent = '00';
+      document.getElementById('cd-mins').textContent = '00';
+      document.getElementById('cd-secs').textContent = '00';
+      return;
+    }
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+    document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
+    document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+</body>
+</html>
