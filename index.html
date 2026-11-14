@@ -1,843 +1,1437 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Housewarming Invitation</title>
-  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Housewarming — Mohammed Ashraf K.</title>
+<script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+<style>
+:root {
+  --white:    #FFFFFF;
+  --offwhite: #F7F8F7;
+  --black:    #0A0A0A;
+  --grey-900: #1C1C1C;
+  --grey-700: #3D3D3D;
+  --grey-500: #6B7280;
+  --grey-300: #D1D5DB;
+  --grey-200: #E9ECEA;
+  --grey-100: #F3F5F3;
+  --sg:       #6B9690;   /* steel green */
+  --sg-lt:    #A8C4BF;   /* light steel green */
+  --sg-dk:    #4A7068;   /* dark steel green */
+  --sg-bg:    #EEF3F1;   /* very light steel green bg */
+}
 
-    body {
-      background: #07050f;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow-x: hidden;
-      font-family: Georgia, 'Times New Roman', serif;
-    }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    #bg-canvas {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-    }
+html { scroll-behavior: smooth; }
 
-    .card-wrapper {
-      position: relative;
-      z-index: 10;
-      width: 100%;
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 20px;
-    }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: var(--offwhite);
+  color: var(--black);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
 
-    /* ── Animated rainbow-gold border ── */
-    .card-outer {
-      border-radius: 22px;
-      padding: 3px;
-      background: linear-gradient(135deg,
-        #c9a227, #9b59b6, #c9a227, #2980b9, #c9a227, #9b59b6, #c9a227);
-      background-size: 400% 400%;
-      animation: borderFlow 6s ease infinite;
-      box-shadow:
-        0 0 50px rgba(201,162,39,0.4),
-        0 0 100px rgba(155,89,182,0.2),
-        0 0 150px rgba(201,162,39,0.1);
-    }
+/* ── Utility ── */
+.serif { font-family: Georgia, 'Times New Roman', serif; }
+.section-label {
+  font-size: 10px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--sg);
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: block;
+}
+.section-title {
+  font-family: Georgia, serif;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 400;
+  color: var(--black);
+  line-height: 1.15;
+}
+.divider-line {
+  width: 50px;
+  height: 2px;
+  background: var(--sg);
+  margin: 16px 0;
+}
+.divider-center { margin: 16px auto; }
 
-    @keyframes borderFlow {
-      0%   { background-position: 0% 50%; }
-      50%  { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+/* ── Scroll reveal ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-    .card-inner {
-      border-radius: 20px;
-      background: linear-gradient(160deg,
-        #0e0920 0%,
-        #080614 30%,
-        #0d0a1a 60%,
-        #07050f 100%);
-      position: relative;
-      overflow: hidden;
-    }
+/* ══════════════════════════════════════════
+   SECTION 1: NAV BAR
+══════════════════════════════════════════ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--grey-200);
+  transition: all 0.3s;
+}
+.nav-brand {
+  font-family: Georgia, serif;
+  font-size: 15px;
+  color: var(--black);
+  letter-spacing: 1px;
+}
+.nav-brand span { color: var(--sg); }
+.nav-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--grey-500);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--sg); }
 
-    /* Soft radial glows */
-    .card-inner::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse at 20% 10%,  rgba(201,162,39,0.07) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 90%,  rgba(155,89,182,0.07) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 10%,  rgba(41,128,185,0.05) 0%, transparent 45%),
-        radial-gradient(ellipse at 20% 90%,  rgba(201,162,39,0.05) 0%, transparent 45%);
-      pointer-events: none;
-    }
+/* ══════════════════════════════════════════
+   SECTION 2: HERO
+══════════════════════════════════════════ */
+#hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 70px;
+}
 
-    /* ── Top shimmer band ── */
-    .top-band {
-      height: 4px;
-      background: linear-gradient(90deg,
-        transparent, #c9a227, #fff, #9b59b6, #c9a227, transparent);
-      opacity: 0.6;
-    }
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 60px;
+  background: var(--white);
+  position: relative;
+}
 
-    /* ── Corner ornaments ── */
-    .corner { position: absolute; width: 70px; height: 70px; pointer-events: none; }
-    .c-tl { top: 0;    left: 0; }
-    .c-tr { top: 0;    right: 0;  transform: scaleX(-1); }
-    .c-bl { bottom: 0; left: 0;   transform: scaleY(-1); }
-    .c-br { bottom: 0; right: 0;  transform: scale(-1); }
+.hero-left::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 10%; bottom: 10%;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--grey-300), transparent);
+}
 
-    /* ── Top section ── */
-    .top-section {
-      text-align: center;
-      padding: 36px 20px 14px;
-      position: relative;
-    }
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.hero-eyebrow .dot {
+  width: 8px; height: 8px;
+  background: var(--sg);
+  border-radius: 50%;
+}
+.hero-eyebrow span {
+  font-size: 11px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--sg);
+  font-weight: 600;
+}
 
-    /* Sparkle row */
-    .sparkle-row {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
+.hero-name {
+  font-family: Georgia, serif;
+  font-size: clamp(36px, 4.5vw, 56px);
+  font-weight: 400;
+  color: var(--black);
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
 
-    .spark {
-      font-size: 20px;
-      animation: sparkPulse 2s ease-in-out infinite alternate;
-      filter: drop-shadow(0 0 6px rgba(201,162,39,0.9));
-    }
-    .spark.big { font-size: 32px; animation-delay: 0.3s; }
-    .spark:nth-child(3) { animation-delay: 0.6s; }
+.hero-family {
+  font-family: Georgia, serif;
+  font-size: clamp(18px, 2.5vw, 24px);
+  color: var(--sg);
+  font-style: italic;
+  margin-bottom: 28px;
+}
 
-    @keyframes sparkPulse {
-      from { opacity: 0.6; transform: scale(0.9); filter: drop-shadow(0 0 6px rgba(201,162,39,0.6)); }
-      to   { opacity: 1;   transform: scale(1.1); filter: drop-shadow(0 0 14px rgba(201,162,39,1)) brightness(1.2); }
-    }
+.hero-date-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--sg-bg);
+  border: 1px solid var(--sg-lt);
+  border-radius: 50px;
+  padding: 10px 20px;
+  font-size: 13px;
+  color: var(--sg-dk);
+  font-weight: 500;
+  margin-bottom: 36px;
+}
 
-    .invite-eyebrow {
-      color: rgba(201,162,39,0.7);
-      font-size: 10px;
-      letter-spacing: 6px;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
+.hero-ctas {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
 
-    .main-title {
-      font-size: 40px;
-      font-weight: 700;
-      font-style: italic;
-      color: #fff;
-      line-height: 1.1;
-      text-shadow:
-        0 0 30px rgba(201,162,39,0.5),
-        0 0 60px rgba(155,89,182,0.2),
-        0 2px 6px rgba(0,0,0,0.6);
-      margin-bottom: 6px;
-    }
-    .main-title span { color: #d4a944; }
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--black);
+  color: var(--white);
+  padding: 13px 26px;
+  border-radius: 8px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 500;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.btn-primary:hover {
+  background: var(--sg-dk);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(74,112,104,0.3);
+}
 
-    .subtitle {
-      color: rgba(201,162,39,0.75);
-      font-size: 12px;
-      letter-spacing: 5px;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--black);
+  padding: 13px 26px;
+  border-radius: 8px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 500;
+  border: 2px solid var(--grey-300);
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.btn-outline:hover {
+  border-color: var(--sg);
+  color: var(--sg);
+  transform: translateY(-2px);
+}
 
-    .malayalam {
-      color: rgba(255,255,255,0.65);
-      font-size: 20px;
-      letter-spacing: 3px;
-      margin: 6px 0;
-    }
+.hero-right {
+  position: relative;
+  background: var(--sg-bg);
+  overflow: hidden;
+}
 
-    /* ── Divider ── */
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 12px 24px;
-    }
-    .divider .line {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(201,162,39,0.4), transparent);
-    }
-    .divider .gem { color: #c9a227; font-size: 13px; }
+/* House photo placeholder */
+.hero-photo-main {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #EEF3F1 0%, #D8E8E5 100%);
+}
 
-    /* ── Host card ── */
-    .host-card {
-      margin: 10px 28px 18px;
-      padding: 26px 28px;
-      border: 1px solid rgba(201,162,39,0.25);
-      border-radius: 16px;
-      background: rgba(255,255,255,0.03);
-      text-align: center;
-      position: relative;
-      backdrop-filter: blur(4px);
-    }
+.photo-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--sg);
+  opacity: 0.6;
+  position: relative;
+}
 
-    .host-card::before {
-      content: '✦';
-      position: absolute;
-      top: -11px; left: 22px;
-      color: #c9a227;
-      background: #090716;
-      padding: 0 8px;
-      font-size: 14px;
-    }
-    .host-card::after {
-      content: '✦';
-      position: absolute;
-      top: -11px; right: 22px;
-      color: #c9a227;
-      background: #090716;
-      padding: 0 8px;
-      font-size: 14px;
-    }
+/* Animated countdown in hero */
+.hero-countdown {
+  position: absolute;
+  bottom: 32px;
+  left: 0; right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
 
-    .honours {
-      color: rgba(201,162,39,0.6);
-      font-size: 11px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-      line-height: 1.8;
-    }
+.cd-unit {
+  text-align: center;
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(107,150,144,0.3);
+  border-radius: 10px;
+  padding: 12px 16px;
+  min-width: 60px;
+}
+.cd-num {
+  display: block;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--sg-dk);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.cd-label {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--grey-500);
+  margin-top: 4px;
+}
 
-    .host-name {
-      font-size: 30px;
-      font-weight: 700;
-      color: #fff;
-      text-shadow: 0 0 20px rgba(201,162,39,0.4);
-      line-height: 1.2;
-    }
+/* ══════════════════════════════════════════
+   SECTION 3: DETAILS BAR
+══════════════════════════════════════════ */
+#details-bar {
+  background: var(--black);
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr 1px 1fr;
+  align-items: stretch;
+}
 
-    .host-family {
-      color: #d4a944;
-      font-size: 15px;
-      margin-top: 4px;
-      letter-spacing: 1px;
-    }
+.detail-sep {
+  background: rgba(255,255,255,0.1);
+}
 
-    .host-location {
-      color: rgba(255,255,255,0.4);
-      font-size: 12px;
-      margin-top: 6px;
-      letter-spacing: 1px;
-    }
+.detail-item {
+  padding: 40px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: background 0.3s;
+}
+.detail-item:hover { background: rgba(107,150,144,0.08); }
 
-    .location-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border: 1px solid rgba(201,162,39,0.3);
-      border-radius: 20px;
-      padding: 4px 14px;
-      margin-top: 10px;
-      color: rgba(201,162,39,0.8);
-      font-size: 11px;
-      letter-spacing: 2px;
-    }
+.detail-icon-wrap {
+  width: 36px; height: 36px;
+  background: rgba(107,150,144,0.15);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+.detail-lbl {
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--sg-lt);
+  font-weight: 600;
+}
+.detail-val {
+  font-family: Georgia, serif;
+  font-size: clamp(18px, 2.2vw, 24px);
+  color: var(--white);
+  font-weight: 400;
+  line-height: 1.2;
+}
+.detail-sub {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 2px;
+}
 
-    /* ── Invite prose ── */
-    .invite-prose {
-      text-align: center;
-      color: rgba(255,255,255,0.65);
-      font-size: 13.5px;
-      line-height: 1.9;
-      margin: 4px 30px 20px;
-      font-style: italic;
-    }
-    .invite-prose strong { color: #d4a944; font-style: normal; }
+/* ══════════════════════════════════════════
+   SECTION 4: FAMILY MESSAGE
+══════════════════════════════════════════ */
+#message {
+  background: var(--sg-bg);
+  padding: 100px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
 
-    /* ── Detail grid ── */
-    .details-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin: 0 28px 18px;
-    }
+#message::before {
+  content: '"';
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: Georgia, serif;
+  font-size: 300px;
+  color: rgba(107,150,144,0.07);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
 
-    .detail-box {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(201,162,39,0.18);
-      border-radius: 12px;
-      padding: 18px 14px;
-      text-align: center;
-      transition: all 0.3s ease;
-      cursor: default;
-    }
-    .detail-box:hover {
-      border-color: rgba(201,162,39,0.5);
-      background: rgba(201,162,39,0.06);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(201,162,39,0.12);
-    }
-    .detail-box.full { grid-column: 1/-1; }
+.message-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  position: relative;
+}
 
-    .d-icon  { font-size: 24px; display: block; margin-bottom: 7px; }
-    .d-label {
-      font-size: 9px;
-      letter-spacing: 3px;
-      color: rgba(201,162,39,0.7);
-      text-transform: uppercase;
-      margin-bottom: 5px;
-    }
-    .d-val   { color: #fff; font-size: 15px; font-weight: 600; line-height: 1.4; }
-    .d-val.accent { color: #d4a944; font-size: 20px; }
-    .d-sub   { color: rgba(255,255,255,0.4); font-size: 11px; margin-top: 4px; }
+.open-quote {
+  font-family: Georgia, serif;
+  font-size: 80px;
+  color: var(--sg-lt);
+  line-height: 0.5;
+  display: block;
+  margin-bottom: 20px;
+}
 
-    /* ── Programme ── */
-    .prog-wrap {
-      margin: 0 28px 18px;
-      padding: 18px 20px;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(201,162,39,0.18);
-      border-radius: 14px;
-    }
+.message-text {
+  font-family: Georgia, serif;
+  font-size: clamp(16px, 2vw, 22px);
+  color: var(--grey-700);
+  line-height: 1.8;
+  font-style: italic;
+  margin-bottom: 28px;
+}
 
-    .prog-heading {
-      text-align: center;
-      color: rgba(201,162,39,0.8);
-      font-size: 10px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-    }
+.message-sig {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
 
-    .prog-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-    .prog-row:last-child { border-bottom: none; padding-bottom: 0; }
+.sig-line {
+  width: 60px;
+  height: 1px;
+  background: var(--sg);
+  margin-bottom: 10px;
+}
 
-    .prog-time-col {
-      min-width: 72px;
-      color: #d4a944;
-      font-size: 13px;
-      font-weight: 700;
-      text-align: right;
-      padding-top: 1px;
-    }
+.sig-name {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  color: var(--black);
+}
+.sig-sub {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--sg);
+}
 
-    .prog-dot-col {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0;
-      padding-top: 6px;
-    }
-    .prog-dot-col .dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: #c9a227;
-      border: 2px solid rgba(201,162,39,0.3);
-      flex-shrink: 0;
-    }
-    .prog-dot-col .line-seg {
-      width: 1px;
-      flex: 1;
-      min-height: 20px;
-      background: rgba(201,162,39,0.2);
-    }
+/* ══════════════════════════════════════════
+   SECTION 5: SAVE THE DATE / CALENDAR
+══════════════════════════════════════════ */
+#calendar {
+  background: var(--white);
+  padding: 100px 40px;
+}
 
-    .prog-info-col { flex: 1; }
-    .prog-ev-name { color: #fff; font-size: 13px; font-weight: 600; }
-    .prog-ev-desc { color: rgba(255,255,255,0.4); font-size: 11px; margin-top: 2px; }
+.calendar-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
 
-    /* ── Feast ── */
-    .feast-wrap {
-      margin: 0 28px 18px;
-      padding: 14px 18px;
-      background: rgba(201,162,39,0.04);
-      border: 1px solid rgba(201,162,39,0.15);
-      border-radius: 12px;
-      text-align: center;
-    }
+.cal-left .section-label { text-align: left; }
 
-    .feast-heading {
-      color: rgba(201,162,39,0.75);
-      font-size: 10px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
+.cal-visual {
+  background: var(--black);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+}
 
-    .feast-chips {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+.cal-header {
+  background: var(--sg-dk);
+  padding: 20px 24px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cal-month {
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+}
+.cal-year {
+  font-family: Georgia, serif;
+  font-size: 28px;
+  color: var(--white);
+}
 
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(201,162,39,0.2);
-      border-radius: 20px;
-      padding: 5px 12px;
-      color: rgba(255,255,255,0.65);
-      font-size: 11px;
-      transition: all 0.2s;
-    }
-    .chip:hover {
-      background: rgba(201,162,39,0.1);
-      border-color: rgba(201,162,39,0.5);
-      color: #fff;
-      transform: scale(1.04);
-    }
+.cal-body {
+  padding: 20px 24px 24px;
+}
 
-    /* ── Countdown ── */
-    .cdown-wrap {
-      margin: 0 28px 18px;
-      text-align: center;
-    }
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 10px;
+}
+.cal-wd {
+  text-align: center;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.3);
+  padding: 4px 0;
+  text-transform: uppercase;
+}
 
-    .cdown-label {
-      color: rgba(201,162,39,0.6);
-      font-size: 10px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
+.cal-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+.cal-day {
+  text-align: center;
+  padding: 7px 4px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+.cal-day.empty { opacity: 0; }
+.cal-day.other { color: rgba(255,255,255,0.15); }
+.cal-day.today {
+  background: var(--sg);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 4px 14px rgba(107,150,144,0.5);
+  animation: calPulse 2s ease-in-out infinite;
+}
+@keyframes calPulse {
+  0%,100% { box-shadow: 0 4px 14px rgba(107,150,144,0.5); }
+  50%      { box-shadow: 0 4px 24px rgba(107,150,144,0.9); }
+}
 
-    .cdown-boxes {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-    }
+.cal-btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 24px;
+}
 
-    .c-box {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(201,162,39,0.2);
-      border-radius: 10px;
-      padding: 12px 14px;
-      min-width: 62px;
-      transition: border-color 0.3s;
-    }
-    .c-box:hover { border-color: rgba(201,162,39,0.5); }
+.cal-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1px solid var(--grey-200);
+  background: var(--white);
+  color: var(--black);
+  transition: all 0.25s;
+}
+.cal-btn:hover {
+  border-color: var(--sg);
+  background: var(--sg-bg);
+  color: var(--sg-dk);
+  transform: translateX(4px);
+}
+.cal-btn .cal-btn-icon {
+  width: 32px; height: 32px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.cal-btn .cal-btn-icon.apple { background: #000; }
+.cal-btn .cal-btn-icon.google { background: #fff; border: 1px solid #eee; }
+.cal-btn .cal-btn-icon.ics { background: var(--sg-bg); }
 
-    .c-num  { color: #d4a944; font-size: 24px; font-weight: 700; display: block; line-height: 1; font-variant-numeric: tabular-nums; }
-    .c-unit { color: rgba(255,255,255,0.3); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; display: block; margin-top: 5px; }
+.cal-btn-info { flex: 1; }
+.cal-btn-title { font-size: 13px; font-weight: 600; display: block; }
+.cal-btn-sub   { font-size: 11px; color: var(--grey-500); display: block; margin-top: 1px; }
 
-    /* ── RSVP ── */
-    .rsvp-wrap {
-      margin: 0 28px 22px;
-      text-align: center;
-    }
+/* ══════════════════════════════════════════
+   SECTION 6: PHOTO GALLERY
+══════════════════════════════════════════ */
+#gallery {
+  background: var(--grey-100);
+  padding: 100px 40px;
+}
 
-    .rsvp-label {
-      color: rgba(255,255,255,0.35);
-      font-size: 10px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-    }
+.gallery-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
 
-    .rsvp-row {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
+.gallery-grid {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  grid-template-rows: 320px 240px;
+  gap: 12px;
+}
 
-    .rsvp-contact {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(201,162,39,0.06);
-      border: 1px solid rgba(201,162,39,0.2);
-      border-radius: 10px;
-      padding: 8px 16px;
-      color: rgba(201,162,39,0.9);
-      font-size: 13px;
-      transition: all 0.2s;
-    }
-    .rsvp-contact:hover {
-      background: rgba(201,162,39,0.12);
-      border-color: rgba(201,162,39,0.5);
-      color: #fff;
-    }
+.gallery-item {
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  background: var(--grey-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.gallery-item:hover {
+  transform: scale(1.015);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+}
 
-    /* ── Footer ── */
-    .footer {
-      text-align: center;
-      padding: 16px 20px 26px;
-      border-top: 1px solid rgba(255,255,255,0.05);
-    }
+.gallery-item.tall { grid-row: 1 / 3; }
 
-    .footer-gems {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
-      color: rgba(201,162,39,0.5);
-      font-size: 12px;
-      letter-spacing: 4px;
-    }
+/* Beautiful CSS gradient placeholders */
+.gi-house {
+  background: linear-gradient(135deg, #CBD8D5 0%, #A8BCBA 40%, #8FAEAB 100%);
+}
+.gi-family {
+  background: linear-gradient(135deg, #D4DCD9 0%, #BCC8C5 100%);
+}
+.gi-exterior {
+  background: linear-gradient(135deg, #C5D3D0 0%, #B0C2BF 100%);
+}
+.gi-members {
+  background: linear-gradient(135deg, #CFDAD7 0%, #B8CECA 100%);
+}
 
-    .footer-quote {
-      color: rgba(255,255,255,0.35);
-      font-size: 12px;
-      font-style: italic;
-      letter-spacing: 1px;
-    }
+.gi-label {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 24px 20px 18px;
+  background: linear-gradient(to top, rgba(10,10,10,0.6), transparent);
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+.gi-tag {
+  display: inline-block;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 2px;
+}
 
-    /* ── Floating particles ── */
-    .floater {
-      position: absolute;
-      pointer-events: none;
-      animation: drift linear infinite;
-      z-index: 2;
-    }
-    @keyframes drift {
-      0%   { transform: translateY(-10px) rotate(0deg) scale(1);   opacity: 0; }
-      8%   { opacity: 0.9; }
-      92%  { opacity: 0.5; }
-      100% { transform: translateY(900px) rotate(400deg) scale(0.6); opacity: 0; }
-    }
+.gi-icon-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.4);
+}
+.gi-svg { opacity: 0.5; }
 
-    /* ── Animations ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(26px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .au { animation: fadeUp 0.75s ease forwards; }
-    .d1 { animation-delay: 0.05s; opacity: 0; }
-    .d2 { animation-delay: 0.15s; opacity: 0; }
-    .d3 { animation-delay: 0.25s; opacity: 0; }
-    .d4 { animation-delay: 0.35s; opacity: 0; }
-    .d5 { animation-delay: 0.45s; opacity: 0; }
-    .d6 { animation-delay: 0.55s; opacity: 0; }
-    .d7 { animation-delay: 0.65s; opacity: 0; }
-    .d8 { animation-delay: 0.75s; opacity: 0; }
+/* Lightbox */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(0,0,0,0.92);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  animation: lbFade 0.2s ease;
+}
+.lightbox.open { display: flex; }
+@keyframes lbFade { from { opacity:0; } to { opacity:1; } }
+.lb-close {
+  position: absolute;
+  top: 24px; right: 32px;
+  color: rgba(255,255,255,0.6);
+  font-size: 28px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  line-height: 1;
+  transition: color 0.2s;
+}
+.lb-close:hover { color: white; }
+.lb-content {
+  max-width: 700px;
+  width: 90%;
+  background: var(--grey-200);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+.lb-caption {
+  color: rgba(255,255,255,0.6);
+  font-size: 13px;
+  letter-spacing: 1px;
+}
 
-    @media (max-width: 480px) {
-      .main-title { font-size: 28px; }
-      .host-name   { font-size: 22px; }
-      .details-grid { grid-template-columns: 1fr; }
-      .detail-box.full { grid-column: auto; }
-      .host-card, .details-grid, .prog-wrap,
-      .feast-wrap, .cdown-wrap, .rsvp-wrap, .invite-prose { margin-left: 14px; margin-right: 14px; }
-    }
-  </style>
+/* ══════════════════════════════════════════
+   SECTION 7: MAP & VENUE
+══════════════════════════════════════════ */
+#venue {
+  background: var(--white);
+  padding: 100px 40px;
+}
+
+.venue-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.venue-address-card {
+  position: sticky;
+  top: 90px;
+}
+
+.address-block {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.addr-row {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.addr-icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  background: var(--sg-bg);
+  border: 1px solid rgba(107,150,144,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.addr-text strong { display: block; font-size: 13px; font-weight: 600; color: var(--black); margin-bottom: 2px; }
+.addr-text span   { font-size: 13px; color: var(--grey-500); line-height: 1.6; }
+
+.map-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.map-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 18px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s;
+  border: none;
+}
+.map-btn.primary {
+  background: var(--black);
+  color: var(--white);
+}
+.map-btn.primary:hover {
+  background: var(--sg-dk);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(74,112,104,0.35);
+}
+.map-btn.secondary {
+  background: var(--sg-bg);
+  color: var(--sg-dk);
+  border: 1px solid rgba(107,150,144,0.3);
+}
+.map-btn.secondary:hover {
+  background: var(--sg-lt);
+  color: var(--white);
+}
+
+/* SVG Map */
+.map-container {
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--grey-200);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+  position: relative;
+}
+
+.map-svg-wrap {
+  background: #E8EDEB;
+  width: 100%;
+  position: relative;
+}
+
+.map-badge {
+  position: absolute;
+  top: 16px; left: 16px;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(8px);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--black);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.map-badge .pin-dot {
+  width: 10px; height: 10px;
+  background: var(--sg);
+  border-radius: 50%;
+  animation: pinPulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes pinPulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(107,150,144,0.6); }
+  50%      { box-shadow: 0 0 0 8px rgba(107,150,144,0); }
+}
+
+/* ══════════════════════════════════════════
+   SECTION 8: RSVP
+══════════════════════════════════════════ */
+#rsvp {
+  background: var(--black);
+  padding: 100px 40px;
+  text-align: center;
+}
+
+.rsvp-inner {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+#rsvp .section-label { justify-content: center; display: flex; }
+#rsvp .section-title { color: var(--white); }
+
+.rsvp-sub {
+  color: rgba(255,255,255,0.45);
+  font-size: 15px;
+  margin: 14px 0 36px;
+  line-height: 1.7;
+}
+
+.rsvp-contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+
+.rsvp-contact-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.25s;
+  color: var(--white);
+}
+.rsvp-contact-row:hover {
+  background: rgba(107,150,144,0.12);
+  border-color: var(--sg);
+  transform: translateX(6px);
+}
+.rsvp-contact-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: var(--sg-dk);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.rsvp-contact-info { flex: 1; text-align: left; }
+.rsvp-contact-name { font-size: 13px; font-weight: 600; }
+.rsvp-contact-num  { font-size: 15px; color: var(--sg-lt); font-family: Georgia, serif; margin-top: 2px; }
+
+.rsvp-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #25D366;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: all 0.25s;
+}
+.rsvp-wa:hover {
+  background: #128C7E;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37,211,102,0.3);
+}
+
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+footer {
+  background: #050505;
+  padding: 32px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+footer .foot-brand {
+  font-family: Georgia, serif;
+  color: rgba(255,255,255,0.3);
+  font-size: 14px;
+}
+footer .foot-brand span { color: var(--sg); }
+footer .foot-loc {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+}
+
+/* ══════════════════════════════════════════
+   MOBILE RESPONSIVE
+══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  nav { padding: 14px 20px; }
+  .nav-links { display: none; }
+
+  #hero { grid-template-columns: 1fr; }
+  .hero-left { padding: 50px 24px 40px; }
+  .hero-left::after { display: none; }
+  .hero-right { min-height: 300px; display: block; }
+
+  #details-bar {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  .detail-sep { width: 100%; height: 1px; }
+  .detail-item { padding: 28px 24px; }
+
+  .calendar-inner { grid-template-columns: 1fr; gap: 36px; }
+  .gallery-grid { grid-template-columns: 1fr; grid-template-rows: 260px 200px 180px 180px; }
+  .gallery-item.tall { grid-row: auto; }
+  .venue-inner { grid-template-columns: 1fr; gap: 36px; }
+  .venue-address-card { position: static; }
+
+  #message { padding: 70px 24px; }
+  #calendar { padding: 70px 24px; }
+  #gallery  { padding: 70px 24px; }
+  #venue    { padding: 70px 24px; }
+  #rsvp     { padding: 70px 24px; }
+
+  footer { flex-direction: column; gap: 8px; text-align: center; }
+}
+</style>
 </head>
 <body>
 
-<canvas id="bg-canvas"></canvas>
-
-<div class="card-wrapper">
-  <div class="card-outer">
-    <div class="card-inner" id="mainCard">
-
-      <!-- Shimmer band top -->
-      <div class="top-band"></div>
-
-      <!-- Corner SVG ornaments -->
-      <div class="corner c-tl">
-        <svg viewBox="0 0 70 70" fill="none">
-          <path d="M6,6 Q6,36 36,36" stroke="#c9a227" stroke-width="1.2" fill="none" opacity="0.5"/>
-          <path d="M6,6 Q36,6 36,36" stroke="#9b59b6" stroke-width="1"   fill="none" opacity="0.4"/>
-          <path d="M6,20 Q20,20 20,36" stroke="#c9a227" stroke-width="0.7" fill="none" opacity="0.3"/>
-          <circle cx="6"  cy="6"  r="3"   fill="#c9a227" opacity="0.9"/>
-          <circle cx="36" cy="36" r="1.5" fill="#9b59b6" opacity="0.5"/>
-          <circle cx="6"  cy="20" r="1.2" fill="#c9a227" opacity="0.4"/>
-          <circle cx="20" cy="6"  r="1.2" fill="#c9a227" opacity="0.4"/>
-        </svg>
-      </div>
-      <div class="corner c-tr">
-        <svg viewBox="0 0 70 70" fill="none">
-          <path d="M6,6 Q6,36 36,36" stroke="#c9a227" stroke-width="1.2" fill="none" opacity="0.5"/>
-          <path d="M6,6 Q36,6 36,36" stroke="#9b59b6" stroke-width="1"   fill="none" opacity="0.4"/>
-          <circle cx="6"  cy="6"  r="3"   fill="#c9a227" opacity="0.9"/>
-          <circle cx="36" cy="36" r="1.5" fill="#9b59b6" opacity="0.5"/>
-        </svg>
-      </div>
-      <div class="corner c-bl">
-        <svg viewBox="0 0 70 70" fill="none">
-          <path d="M6,6 Q6,36 36,36" stroke="#c9a227" stroke-width="1.2" fill="none" opacity="0.5"/>
-          <path d="M6,6 Q36,6 36,36" stroke="#9b59b6" stroke-width="1"   fill="none" opacity="0.4"/>
-          <circle cx="6"  cy="6"  r="3"   fill="#c9a227" opacity="0.9"/>
-          <circle cx="36" cy="36" r="1.5" fill="#9b59b6" opacity="0.5"/>
-        </svg>
-      </div>
-      <div class="corner c-br">
-        <svg viewBox="0 0 70 70" fill="none">
-          <path d="M6,6 Q6,36 36,36" stroke="#c9a227" stroke-width="1.2" fill="none" opacity="0.5"/>
-          <path d="M6,6 Q36,6 36,36" stroke="#9b59b6" stroke-width="1"   fill="none" opacity="0.4"/>
-          <circle cx="6"  cy="6"  r="3"   fill="#c9a227" opacity="0.9"/>
-          <circle cx="36" cy="36" r="1.5" fill="#9b59b6" opacity="0.5"/>
-        </svg>
-      </div>
-
-      <!-- TOP HEADER -->
-      <div class="top-section au d1">
-        <div class="sparkle-row">
-          <span class="spark">✦</span>
-          <span class="spark big">🏡</span>
-          <span class="spark">✦</span>
-        </div>
-        <div class="invite-eyebrow">— with warmth &amp; joy —</div>
-        <div class="main-title">House <span>Warming</span></div>
-        <div class="subtitle">✦ &nbsp; C E L E B R A T I O N &nbsp; ✦</div>
-        <div class="malayalam">വീട് തിറക്കൽ</div>
-      </div>
-
-      <div class="divider au d2">
-        <div class="line"></div>
-        <span class="gem">❖</span>
-        <div class="line"></div>
-      </div>
-
-      <!-- HOST -->
-      <div class="host-card au d2">
-        <div class="honours">
-          We are overjoyed to announce the<br/>housewarming of
-        </div>
-        <div class="host-name">Mohammed Ashraf K.</div>
-        <div class="host-family">& Family</div>
-        <div class="host-location">S/o Kunhimohammed · Kozhikode</div>
-        <div class="location-pill">📍 &nbsp; Kozhikode, Kerala</div>
-      </div>
-
-      <!-- INVITE PROSE -->
-      <div class="invite-prose au d3">
-        It is our great pleasure to invite you and your family to join us
-        in celebrating this joyful milestone. Your presence and warm wishes
-        will make our <strong>new home</strong> truly special.
-        We look forward to welcoming you with <strong>open doors</strong>.
-      </div>
-
-      <!-- EVENT DETAILS -->
-      <div class="details-grid au d3">
-        <div class="detail-box">
-          <span class="d-icon">📅</span>
-          <div class="d-label">Date</div>
-          <div class="d-val">Sunday</div>
-          <div class="d-val accent">30 Nov 2026</div>
-        </div>
-        <div class="detail-box">
-          <span class="d-icon">⏰</span>
-          <div class="d-label">Time</div>
-          <div class="d-val accent">10:00 AM</div>
-          <div class="d-sub">Lunch from 12:30 PM onwards</div>
-        </div>
-        <div class="detail-box full">
-          <span class="d-icon">📍</span>
-          <div class="d-label">Venue</div>
-          <div class="d-val">"Ashraf Manzil" — New Residence</div>
-          <div class="d-sub" style="margin-top:6px; color:rgba(212,169,68,0.7); font-size:12px;">
-            Puthiyara – Mavoor Road, Near Town Hall<br/>
-            Kozhikode (Calicut) — 673 004, Kerala
-          </div>
-        </div>
-      </div>
-
-      <!-- PROGRAMME -->
-      <div class="prog-wrap au d4">
-        <div class="prog-heading">🗓 &nbsp; Programme Schedule</div>
-
-        <div class="prog-row">
-          <div class="prog-time-col">10:00 AM</div>
-          <div class="prog-dot-col">
-            <div class="dot"></div>
-            <div class="line-seg"></div>
-          </div>
-          <div class="prog-info-col">
-            <div class="prog-ev-name">Welcome & Gathering</div>
-            <div class="prog-ev-desc">Guests arrive at the new home</div>
-          </div>
-        </div>
-
-        <div class="prog-row">
-          <div class="prog-time-col">11:00 AM</div>
-          <div class="prog-dot-col">
-            <div class="dot"></div>
-            <div class="line-seg"></div>
-          </div>
-          <div class="prog-info-col">
-            <div class="prog-ev-name">House Inauguration</div>
-            <div class="prog-ev-desc">Official opening of the new home</div>
-          </div>
-        </div>
-
-        <div class="prog-row">
-          <div class="prog-time-col">12:30 PM</div>
-          <div class="prog-dot-col">
-            <div class="dot"></div>
-            <div class="line-seg"></div>
-          </div>
-          <div class="prog-info-col">
-            <div class="prog-ev-name">Grand Lunch Feast</div>
-            <div class="prog-ev-desc">Traditional Malabar cuisine served</div>
-          </div>
-        </div>
-
-        <div class="prog-row">
-          <div class="prog-time-col">3:00 PM</div>
-          <div class="prog-dot-col">
-            <div class="dot"></div>
-          </div>
-          <div class="prog-info-col">
-            <div class="prog-ev-name">Tea & Celebration</div>
-            <div class="prog-ev-desc">Snacks, sweets &amp; warm company</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- FEAST -->
-      <div class="feast-wrap au d5">
-        <div class="feast-heading">🍽️ &nbsp; On the Menu</div>
-        <div class="feast-chips">
-          <div class="chip">🍚 Malabar Biryani</div>
-          <div class="chip">🫓 Pathiri</div>
-          <div class="chip">🍗 Kozhi Curry</div>
-          <div class="chip">🥩 Beef Fry</div>
-          <div class="chip">🍮 Payasam</div>
-          <div class="chip">🥛 Sulaimani Tea</div>
-          <div class="chip">🍰 Sweets & Snacks</div>
-        </div>
-      </div>
-
-      <!-- COUNTDOWN -->
-      <div class="cdown-wrap au d6">
-        <div class="cdown-label">✦ &nbsp; Celebrating in &nbsp; ✦</div>
-        <div class="cdown-boxes">
-          <div class="c-box">
-            <span class="c-num" id="cd-d">16</span>
-            <span class="c-unit">Days</span>
-          </div>
-          <div class="c-box">
-            <span class="c-num" id="cd-h">00</span>
-            <span class="c-unit">Hours</span>
-          </div>
-          <div class="c-box">
-            <span class="c-num" id="cd-m">00</span>
-            <span class="c-unit">Mins</span>
-          </div>
-          <div class="c-box">
-            <span class="c-num" id="cd-s">00</span>
-            <span class="c-unit">Secs</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- RSVP -->
-      <div class="rsvp-wrap au d7">
-        <div class="divider" style="margin:0 0 16px;">
-          <div class="line"></div>
-          <span class="gem">❖</span>
-          <div class="line"></div>
-        </div>
-        <div class="rsvp-label">We'd love to know you're coming</div>
-        <div class="rsvp-row">
-          <div class="rsvp-contact">📞 &nbsp; +91 95670 00001</div>
-          <div class="rsvp-contact">💬 &nbsp; +91 95670 00002</div>
-        </div>
-        <div style="margin-top:12px; color:rgba(255,255,255,0.25); font-size:11px; font-style:italic;">
-          Your presence is the greatest gift
-        </div>
-      </div>
-
-      <!-- FOOTER -->
-      <div class="footer au d8">
-        <div class="footer-gems">✦ &nbsp; ✧ &nbsp; ✦ &nbsp; ✧ &nbsp; ✦</div>
-        <div class="footer-quote">
-          "A house is built with walls and beams — a home is built with love and dreams"
-        </div>
-        <div style="margin-top:10px; color:rgba(201,162,39,0.3); font-size:10px; letter-spacing:4px; text-transform:uppercase;">
-          Kozhikode · Kerala · 2026
-        </div>
-      </div>
-
-      <!-- Bottom band -->
-      <div class="top-band" style="transform:scaleY(-1);"></div>
-
+<!-- ── LIGHTBOX ── -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lb-close" onclick="closeLightbox()">✕</button>
+  <div class="lb-content" id="lb-content">
+    <div class="gi-icon-wrap" style="min-height:300px;">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" class="gi-svg">
+        <rect x="8" y="28" width="48" height="30" rx="3" stroke="#6B9690" stroke-width="2"/>
+        <path d="M4 30L32 8l28 22" stroke="#6B9690" stroke-width="2" stroke-linecap="round"/>
+        <rect x="24" y="38" width="16" height="20" rx="2" stroke="#6B9690" stroke-width="1.5"/>
+      </svg>
+      <span style="font-size:12px;color:#6B9690;letter-spacing:2px;">PHOTO PREVIEW</span>
     </div>
+  </div>
+  <div class="lb-caption" id="lb-caption">House Photo</div>
+</div>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-brand serif">Ashraf <span>&</span> Family</div>
+  <ul class="nav-links">
+    <li><a href="#message">Message</a></li>
+    <li><a href="#calendar">Calendar</a></li>
+    <li><a href="#gallery">Photos</a></li>
+    <li><a href="#venue">Venue</a></li>
+    <li><a href="#rsvp">RSVP</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow reveal">
+      <div class="dot"></div>
+      <span>Housewarming Invitation</span>
+    </div>
+    <h1 class="hero-name reveal" style="transition-delay:.08s">Mohammed<br/>Ashraf K.</h1>
+    <p class="hero-family reveal" style="transition-delay:.14s">& Family</p>
+    <div class="hero-date-pill reveal" style="transition-delay:.2s">
+      📅 &nbsp; Sunday, 30 November 2026
+    </div>
+    <div class="hero-ctas reveal" style="transition-delay:.26s">
+      <a href="#rsvp" class="btn-primary">RSVP Now</a>
+      <a href="#venue" class="btn-outline">View Venue</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-photo-main">
+      <div class="photo-placeholder">
+        <!-- House silhouette SVG -->
+        <svg width="120" height="120" viewBox="0 0 120 120" fill="none" class="gi-svg" style="opacity:0.35;">
+          <path d="M15 55L60 15l45 40" stroke="#4A7068" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="22" y="55" width="76" height="52" rx="2" stroke="#4A7068" stroke-width="2.5"/>
+          <rect x="45" y="72" width="30" height="35" rx="2" stroke="#4A7068" stroke-width="2"/>
+          <rect x="30" y="62" width="18" height="18" rx="1.5" stroke="#4A7068" stroke-width="2"/>
+          <rect x="72" y="62" width="18" height="18" rx="1.5" stroke="#4A7068" stroke-width="2"/>
+        </svg>
+        <span style="font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--sg-dk);font-weight:500;opacity:0.6;">House Photo</span>
+      </div>
+    </div>
+
+    <!-- Countdown -->
+    <div class="hero-countdown" style="z-index:5; position:absolute;">
+      <div class="cd-unit"><span class="cd-num" id="cd-d">16</span><span class="cd-label">Days</span></div>
+      <div class="cd-unit"><span class="cd-num" id="cd-h">00</span><span class="cd-label">Hours</span></div>
+      <div class="cd-unit"><span class="cd-num" id="cd-m">00</span><span class="cd-label">Mins</span></div>
+      <div class="cd-unit"><span class="cd-num" id="cd-s">00</span><span class="cd-label">Secs</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DETAILS BAR ══ -->
+<div id="details-bar">
+  <div class="detail-item reveal">
+    <div class="detail-icon-wrap">📅</div>
+    <span class="detail-lbl">Date</span>
+    <div class="detail-val">30 November 2026</div>
+    <div class="detail-sub">Sunday — Kozhikode, Kerala</div>
+  </div>
+  <div class="detail-sep"></div>
+  <div class="detail-item reveal" style="transition-delay:.08s">
+    <div class="detail-icon-wrap">⏰</div>
+    <span class="detail-lbl">Time</span>
+    <div class="detail-val">10:00 AM</div>
+    <div class="detail-sub">Lunch reception from 12:30 PM</div>
+  </div>
+  <div class="detail-sep"></div>
+  <div class="detail-item reveal" style="transition-delay:.14s">
+    <div class="detail-icon-wrap">📍</div>
+    <span class="detail-lbl">Venue</span>
+    <div class="detail-val">Ashraf Manzil</div>
+    <div class="detail-sub">Puthiyara, Kozhikode — 673 004</div>
   </div>
 </div>
 
+<!-- ══ FAMILY MESSAGE ══ -->
+<section id="message">
+  <div class="message-inner">
+    <span class="open-quote reveal">"</span>
+    <p class="message-text reveal" style="transition-delay:.08s">
+      After years of dreaming, months of planning, and countless moments of
+      anticipation — we are finally home. This new chapter wouldn't feel complete
+      without the people who have always been our home: you.
+      We warmly invite you to step through our doors, share in our joy,
+      and bless this space with your love and laughter.
+    </p>
+    <div class="message-sig reveal" style="transition-delay:.14s">
+      <div class="sig-line"></div>
+      <span class="sig-name">Mohammed Ashraf K.</span>
+      <span class="sig-sub">& Family · Kozhikode</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CALENDAR ══ -->
+<section id="calendar">
+  <div class="calendar-inner">
+    <div class="cal-left reveal">
+      <span class="section-label">Don't Miss It</span>
+      <h2 class="section-title">Save<br/>the Date</h2>
+      <div class="divider-line"></div>
+      <p style="color:var(--grey-500); font-size:14px; line-height:1.8; margin-bottom:8px;">
+        Add our housewarming to your calendar so you never forget this special day.
+      </p>
+      <div class="cal-btn-group">
+        <a href="#" onclick="addAppleCalendar()" class="cal-btn">
+          <div class="cal-btn-icon apple">🍎</div>
+          <div class="cal-btn-info">
+            <span class="cal-btn-title">Apple Calendar</span>
+            <span class="cal-btn-sub">Download .ics file for iPhone / iPad / Mac</span>
+          </div>
+          <span style="color:var(--grey-300); font-size:14px;">↓</span>
+        </a>
+        <a href="#" onclick="addGoogleCalendar()" class="cal-btn">
+          <div class="cal-btn-icon google">📅</div>
+          <div class="cal-btn-info">
+            <span class="cal-btn-title">Google Calendar</span>
+            <span class="cal-btn-sub">Android, Gmail & Google Workspace</span>
+          </div>
+          <span style="color:var(--grey-300); font-size:14px;">↗</span>
+        </a>
+        <a href="#" onclick="addOutlook()" class="cal-btn">
+          <div class="cal-btn-icon" style="background:#0078d4; color:white; font-size:13px;">📧</div>
+          <div class="cal-btn-info">
+            <span class="cal-btn-title">Outlook / ICS</span>
+            <span class="cal-btn-sub">Windows Calendar, Outlook, any .ics app</span>
+          </div>
+          <span style="color:var(--grey-300); font-size:14px;">↓</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Visual calendar card -->
+    <div class="cal-visual reveal" style="transition-delay:.1s">
+      <div class="cal-header">
+        <span class="cal-month">November</span>
+        <span class="cal-year">2026</span>
+      </div>
+      <div class="cal-body">
+        <div class="cal-weekdays">
+          <div class="cal-wd">S</div><div class="cal-wd">M</div><div class="cal-wd">T</div>
+          <div class="cal-wd">W</div><div class="cal-wd">T</div><div class="cal-wd">F</div><div class="cal-wd">S</div>
+        </div>
+        <div class="cal-days">
+          <!-- Nov 2026: starts on Sunday (0) -->
+          <div class="cal-day">1</div><div class="cal-day">2</div><div class="cal-day">3</div>
+          <div class="cal-day">4</div><div class="cal-day">5</div><div class="cal-day">6</div>
+          <div class="cal-day">7</div><div class="cal-day">8</div><div class="cal-day">9</div>
+          <div class="cal-day">10</div><div class="cal-day">11</div><div class="cal-day">12</div>
+          <div class="cal-day">13</div><div class="cal-day">14</div><div class="cal-day">15</div>
+          <div class="cal-day">16</div><div class="cal-day">17</div><div class="cal-day">18</div>
+          <div class="cal-day">19</div><div class="cal-day">20</div><div class="cal-day">21</div>
+          <div class="cal-day">22</div><div class="cal-day">23</div><div class="cal-day">24</div>
+          <div class="cal-day">25</div><div class="cal-day">26</div><div class="cal-day">27</div>
+          <div class="cal-day">28</div><div class="cal-day">29</div>
+          <div class="cal-day today" title="Housewarming Day!">30</div>
+          <div class="cal-day other">1</div><div class="cal-day other">2</div>
+          <div class="cal-day other">3</div><div class="cal-day other">4</div>
+          <div class="cal-day other">5</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GALLERY ══ -->
+<section id="gallery">
+  <div class="gallery-header reveal">
+    <span class="section-label" style="display:block;text-align:center;">Our New Home</span>
+    <h2 class="section-title" style="text-align:center;">A Glimpse of<br/>Our New Beginning</h2>
+    <div class="divider-line divider-center"></div>
+  </div>
+
+  <div class="gallery-grid reveal" style="transition-delay:.08s">
+
+    <!-- Main house photo (tall) -->
+    <div class="gallery-item gi-house tall" onclick="openLightbox('Our New Home — Ashraf Manzil')">
+      <div class="gi-icon-wrap">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" class="gi-svg">
+          <path d="M8 30L32 8l24 22" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          <rect x="10" y="30" width="44" height="28" rx="2" stroke="white" stroke-width="2"/>
+          <rect x="22" y="38" width="20" height="20" rx="1.5" stroke="white" stroke-width="1.5"/>
+          <rect x="14" y="34" width="12" height="10" rx="1" stroke="white" stroke-width="1.5"/>
+          <rect x="38" y="34" width="12" height="10" rx="1" stroke="white" stroke-width="1.5"/>
+        </svg>
+        <span style="font-size:10px;color:rgba(255,255,255,0.5);letter-spacing:2px;">HOUSE FRONT</span>
+      </div>
+      <div class="gi-label">
+        <span class="gi-tag">Main Photo</span><br/>Ashraf Manzil — New Residence
+      </div>
+    </div>
+
+    <!-- Family group -->
+    <div class="gallery-item gi-family" onclick="openLightbox('Our Family — Together')">
+      <div class="gi-icon-wrap">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" class="gi-svg">
+          <circle cx="16" cy="14" r="7" stroke="white" stroke-width="2"/>
+          <circle cx="36" cy="14" r="7" stroke="white" stroke-width="2"/>
+          <circle cx="26" cy="16" r="5" stroke="white" stroke-width="1.5"/>
+          <path d="M4 46c0-8 5-13 12-13s12 5 12 13" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <path d="M24 46c0-7 4-11 10-11s10 4 10 11" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span style="font-size:10px;color:rgba(255,255,255,0.5);letter-spacing:2px;">FAMILY</span>
+      </div>
+      <div class="gi-label">
+        <span class="gi-tag">Group Photo</span><br/>Family Portrait
+      </div>
+    </div>
+
+    <!-- House exterior -->
+    <div class="gallery-item gi-exterior" onclick="openLightbox('House Exterior — View 2')">
+      <div class="gi-icon-wrap">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" class="gi-svg">
+          <rect x="6" y="18" width="32" height="22" rx="2" stroke="white" stroke-width="2"/>
+          <path d="M4 20L22 6l18 14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <rect x="16" y="26" width="12" height="14" rx="1" stroke="white" stroke-width="1.5"/>
+          <line x1="22" y1="26" x2="22" y2="40" stroke="white" stroke-width="1"/>
+        </svg>
+        <span style="font-size:10px;color:rgba(255,255,255,0.5);letter-spacing:2px;">EXTERIOR</span>
+      </div>
+      <div class="gi-label">
+        <span class="gi-tag">Photo 3</span><br/>House Exterior — View
+      </div>
+    </div>
+
+    <!-- Family members -->
+    <div class="gallery-item gi-members" onclick="openLightbox('Family Members')">
+      <div class="gi-icon-wrap">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" class="gi-svg">
+          <circle cx="14" cy="12" r="6" stroke="white" stroke-width="1.8"/>
+          <circle cx="30" cy="12" r="6" stroke="white" stroke-width="1.8"/>
+          <path d="M4 38c0-6 4-10 10-10s10 4 10 10" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M20 38c0-6 4-10 10-10s10 4 10 10" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <span style="font-size:10px;color:rgba(255,255,255,0.5);letter-spacing:2px;">MEMBERS</span>
+      </div>
+      <div class="gi-label">
+        <span class="gi-tag">Photo 4</span><br/>Family Members
+      </div>
+    </div>
+
+  </div>
+  <p style="text-align:center; color:var(--grey-500); font-size:12px; margin-top:20px; letter-spacing:1px; font-style:italic;">
+    Click any photo to preview · Replace placeholders with your real photos
+  </p>
+</section>
+
+<!-- ══ VENUE & MAP ══ -->
+<section id="venue">
+  <div class="venue-inner">
+
+    <div class="venue-address-card reveal">
+      <span class="section-label">Find Us</span>
+      <h2 class="section-title">Venue &<br/>Location</h2>
+      <div class="divider-line"></div>
+      <div class="address-block">
+        <div class="addr-row">
+          <div class="addr-icon">🏠</div>
+          <div class="addr-text">
+            <strong>Ashraf Manzil</strong>
+            <span>New Residence, Puthiyara<br/>Mavoor Road, Kozhikode<br/>Kerala — 673 004</span>
+          </div>
+        </div>
+        <div class="addr-row">
+          <div class="addr-icon">🕙</div>
+          <div class="addr-text">
+            <strong>Arrival Time</strong>
+            <span>10:00 AM onwards<br/>Lunch from 12:30 PM</span>
+          </div>
+        </div>
+        <div class="addr-row">
+          <div class="addr-icon">🚗</div>
+          <div class="addr-text">
+            <strong>Landmark</strong>
+            <span>Near Puthiyara Town Hall<br/>Opposite to Mini Supermarket</span>
+          </div>
+        </div>
+        <div class="addr-row">
+          <div class="addr-icon">🚌</div>
+          <div class="addr-text">
+            <strong>Getting Here</strong>
+            <span>15 min from Kozhikode Railway Station<br/>10 min from KSRTC Bus Stand</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="map-actions" style="margin-top:28px;">
+        <a href="https://www.google.com/maps/dir/?api=1&destination=Puthiyara+Kozhikode+Kerala" target="_blank" class="map-btn primary">
+          🗺️ &nbsp; Open in Google Maps
+        </a>
+        <a href="https://maps.apple.com/?q=Puthiyara+Kozhikode+Kerala" target="_blank" class="map-btn secondary">
+          🍎 &nbsp; Open in Apple Maps
+        </a>
+      </div>
+    </div>
+
+    <!-- Map panel -->
+    <div class="map-container reveal" style="transition-delay:.1s;">
+      <div class="map-svg-wrap">
+        <!-- Stylized SVG map of Kozhikode area -->
+        <svg viewBox="0 0 500 400" fill="none" width="100%" style="display:block;">
+          <!-- Background -->
+          <rect width="500" height="400" fill="#E8EDEB"/>
+
+          <!-- Sea / water body (Arabian Sea) on left -->
+          <path d="M0 0 L80 0 L60 50 L50 100 L45 150 L48 200 L44 250 L50 300 L55 350 L50 400 L0 400 Z" fill="#C8D8D5" opacity="0.6"/>
+          <text x="22" y="200" fill="#8FAEAB" font-size="9" font-family="sans-serif" transform="rotate(-90,22,200)" letter-spacing="2" text-anchor="middle" opacity="0.7">ARABIAN SEA</text>
+
+          <!-- Main road: Mavoor Road (horizontal) -->
+          <path d="M80 190 L440 190" stroke="#C4CAC6" stroke-width="12" stroke-linecap="round"/>
+          <path d="M80 190 L440 190" stroke="white" stroke-width="2" stroke-linecap="round" stroke-dasharray="20 15"/>
+          <text x="260" y="183" fill="#8A9690" font-size="9" font-family="sans-serif" text-anchor="middle" letter-spacing="1">MAVOOR ROAD (NH 766)</text>
+
+          <!-- Secondary road: Puthiyara Rd (vertical) -->
+          <path d="M240 80 L240 320" stroke="#D0D6D2" stroke-width="8" stroke-linecap="round"/>
+          <path d="M240 80 L240 320" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="12 10"/>
+          <text x="254" y="130" fill="#9AA69E" font-size="8" font-family="sans-serif" letter-spacing="0.5" transform="rotate(90,254,130)">PUTHIYARA ROAD</text>
+
+          <!-- Cross roads -->
+          <path d="M140 100 L140 300" stroke="#D8DEDA" stroke-width="5"/>
+          <path d="M340 100 L340 300" stroke="#D8DEDA" stroke-width="5"/>
+          <path d="M80 260 L440 260" stroke="#D8DEDA" stroke-width="5"/>
+          <path d="M80 130 L440 130" stroke="#D8DEDA" stroke-width="5"/>
+
+          <!-- Blocks / Buildings -->
+          <rect x="100" y="145" width="30" height="20" rx="2" fill="#CBD4D1" opacity="0.7"/>
+          <rect x="145" y="145" width="40" height="20" rx="2" fill="#CBD4D1" opacity="0.7"/>
+          <rect x="100" y="200" width="50" height="25" rx="2" fill="#C5CFC9" opacity="0.6"/>
+          <rect x="165" y="200" width="30" height="25" rx="2" fill="#CBD4D1" opacity="0.6"/>
+          <rect x="260" y="145" width="35" height="20" rx="2" fill="#CBD4D1" opacity="0.6"/>
+          <rect x="310" y="145" width="40" height="20" rx="2" fill="#CBD4D1" opacity="0.6"/>
+          <rect x="260" y="200" width="60" height="25" rx="2" fill="#C5CFC9" opacity="0.6"/>
+          <rect x="345" y="200" width="45" height="25" rx="2" fill="#CBD4D1" opacity="0.6"/>
+          <rect x="100" y="270" width="45" height="22" rx="2" fill="#CBD4D1" opacity="0.6"/>
+          <rect x="260" y="270" width="50" height="22" rx="2" fill="#CBD4D1" opacity="0.6"/>
+          <rect x="330" y="270" width="60" height="22" rx="2" fill="#C5CFC9" opacity="0.6"/>
+
+          <!-- Roundabout / junction at center -->
+          <circle cx="240" cy="190" r="20" fill="#D4DDD9" stroke="white" stroke-width="2"/>
+          <circle cx="240" cy="190" r="10" fill="#C0CCC8"/>
+
+          <!-- Park / green area -->
+          <rect x="155" y="270" width="70" height="40" rx="4" fill="#B8D0C4" opacity="0.5"/>
+          <text x="190" y="294" fill="#6B9690" font-size="8" font-family="sans-serif" text-anchor="middle" letter-spacing="1">PARK</text>
+
+          <!-- Location PIN -->
+          <g transform="translate(240, 150)">
+            <!-- Pin shadow -->
+            <ellipse cx="0" cy="40" rx="10" ry="4" fill="rgba(0,0,0,0.12)"/>
+            <!-- Pin body -->
+            <path d="M0 0 C-14 0 -14 20 0 20 C14 20 14 0 0 0 Z" fill="#4A7068"/>
+            <path d="M0 20 L0 38" stroke="#4A7068" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="0" cy="10" r="5" fill="white" opacity="0.9"/>
+            <!-- Pulse ring -->
+            <circle cx="0" cy="10" r="16" stroke="#6B9690" stroke-width="1.5" opacity="0.4" fill="none">
+              <animate attributeName="r" from="14" to="22" dur="2s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" from="0.5" to="0" dur="2s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+
+          <!-- Label box for location -->
+          <rect x="262" y="130" width="140" height="38" rx="8" fill="white" opacity="0.95" filter="url(#shadow)"/>
+          <text x="332" y="145" fill="#0A0A0A" font-size="10" font-family="sans-serif" font-weight="600" text-anchor="middle">Ashraf Manzil</text>
+          <text x="332" y="160" fill="#6B9690" font-size="9" font-family="sans-serif" text-anchor="middle" letter-spacing="0.5">Puthiyara, Kozhikode</text>
+
+          <!-- Compass rose -->
+          <g transform="translate(450, 50)">
+            <circle cx="0" cy="0" r="20" fill="white" opacity="0.8"/>
+            <text x="0" y="-8" fill="#4A7068" font-size="9" font-family="sans-serif" text-anchor="middle" font-weight="700">N</text>
+            <line x1="0" y1="-14" x2="0" y2="14" stroke="#4A7068" stroke-width="1" opacity="0.4"/>
+            <line x1="-14" y1="0" x2="14" y2="0" stroke="#4A7068" stroke-width="1" opacity="0.4"/>
+            <circle cx="0" cy="0" r="3" fill="#6B9690"/>
+          </g>
+
+          <defs>
+            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.1"/>
+            </filter>
+          </defs>
+        </svg>
+
+        <!-- Map overlay badge -->
+        <div class="map-badge">
+          <div class="pin-dot"></div>
+          <div>
+            <div style="font-weight:600; font-size:12px;">Ashraf Manzil</div>
+            <div style="font-size:10px; color:var(--grey-500); margin-top:1px;">Puthiyara, Kozhikode</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RSVP ══ -->
+<section id="rsvp">
+  <div class="rsvp-inner">
+    <span class="section-label" style="display:flex;justify-content:center;">Join the Celebration</span>
+    <h2 class="section-title reveal" style="color:var(--white);">
+      We'd Love<br/>to See You There
+    </h2>
+    <div class="divider-line divider-center reveal"></div>
+    <p class="rsvp-sub reveal" style="transition-delay:.08s">
+      Please RSVP so we can ensure a warm welcome for you and your family.
+      Reach out to us directly — we'd love to hear from you!
+    </p>
+
+    <div class="rsvp-contacts reveal" style="transition-delay:.12s">
+      <a href="tel:+919567000001" class="rsvp-contact-row">
+        <div class="rsvp-contact-icon">📞</div>
+        <div class="rsvp-contact-info">
+          <div class="rsvp-contact-name">Mohammed Ashraf K.</div>
+          <div class="rsvp-contact-num">+91 95670 00001</div>
+        </div>
+        <span style="color:rgba(255,255,255,0.3); font-size:18px;">›</span>
+      </a>
+      <a href="tel:+919567000002" class="rsvp-contact-row">
+        <div class="rsvp-contact-icon">📱</div>
+        <div class="rsvp-contact-info">
+          <div class="rsvp-contact-name">Family Contact</div>
+          <div class="rsvp-contact-num">+91 95670 00002</div>
+        </div>
+        <span style="color:rgba(255,255,255,0.3); font-size:18px;">›</span>
+      </a>
+    </div>
+
+    <a href="https://wa.me/919567000001?text=Assalamu+Alaikum!+We+will+attend+the+Housewarming+on+30+Nov+2026+InshaAllah" target="_blank" class="rsvp-wa reveal" style="transition-delay:.16s">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      RSVP on WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="foot-brand serif">Ashraf <span>&</span> Family — Housewarming 2026</div>
+  <div class="foot-loc">Kozhikode · Kerala · India</div>
+</footer>
+
 <script>
-// ── Background: floating gold & purple particles ─────────────────
-const canvas = document.getElementById('bg-canvas');
-const ctx    = canvas.getContext('2d');
-
-function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
-resize();
-window.addEventListener('resize', resize);
-
-const pts = Array.from({ length: 100 }, () => ({
-  x:   Math.random() * innerWidth,
-  y:   Math.random() * innerHeight,
-  r:   Math.random() * 1.6 + 0.3,
-  dx:  (Math.random() - 0.5) * 0.25,
-  dy:  (Math.random() - 0.5) * 0.25,
-  op:  Math.random() * 0.5 + 0.1,
-  fd:  Math.random() > 0.5 ? 1 : -1,
-  fs:  Math.random() * 0.004 + 0.002,
-  col: ['#c9a227','#9b59b6','#2980b9','#d4a944'][Math.floor(Math.random()*4)]
-}));
-
-(function loop() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  pts.forEach(p => {
-    p.x += p.dx; p.y += p.dy;
-    p.op += p.fs * p.fd;
-    if (p.op > 0.65 || p.op < 0.05) p.fd *= -1;
-    if (p.x < 0 || p.x > canvas.width)  p.x = Math.random() * canvas.width;
-    if (p.y < 0 || p.y > canvas.height) p.y = Math.random() * canvas.height;
-    ctx.save();
-    ctx.globalAlpha = p.op;
-    ctx.fillStyle   = p.col;
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-  });
-  requestAnimationFrame(loop);
-})();
-
-// ── Floating emoji sparkles ───────────────────────────────────────
-const emojis = ['✨','🌸','⭐','🌺','💫','🌟','🎊'];
-const card   = document.getElementById('mainCard');
-
-function spawn() {
-  const el = document.createElement('span');
-  el.className = 'floater';
-  const dur = 7000 + Math.random() * 7000;
-  el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-  el.style.cssText = `
-    left: ${4 + Math.random() * 92}%;
-    top: -15px;
-    font-size: ${10 + Math.random() * 12}px;
-    animation-duration: ${dur}ms;
-    animation-delay: ${Math.random() * 1500}ms;
-    opacity: 0;
-  `;
-  card.appendChild(el);
-  setTimeout(() => el.remove(), dur + 2000);
-}
-for (let i = 0; i < 7; i++) setTimeout(spawn, i * 600);
-setInterval(spawn, 2500);
-
-// ── Countdown ─────────────────────────────────────────────────────
+// ── Countdown ──────────────────────────────────────────────────
 const target = new Date('2026-11-30T10:00:00+05:30');
-
 function tick() {
   const diff = target - Date.now();
   if (diff <= 0) {
@@ -853,8 +1447,64 @@ function tick() {
   document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
   document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
 }
-tick();
-setInterval(tick, 1000);
+tick(); setInterval(tick, 1000);
+
+// ── Scroll reveal ──────────────────────────────────────────────
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// ── Calendar functions ─────────────────────────────────────────
+function makeICS() {
+  return [
+    'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Ashraf Housewarming//EN',
+    'BEGIN:VEVENT',
+    'DTSTART:20261130T043000Z',
+    'DTEND:20261130T103000Z',
+    'SUMMARY:Housewarming — Mohammed Ashraf K. & Family',
+    'LOCATION:Ashraf Manzil\\, Puthiyara\\, Kozhikode\\, Kerala 673004',
+    'DESCRIPTION:You are cordially invited to our Housewarming celebration. Please join us!',
+    'END:VEVENT','END:VCALENDAR'
+  ].join('\r\n');
+}
+
+function addAppleCalendar(e) {
+  if(e) e.preventDefault();
+  const blob = new Blob([makeICS()], { type: 'text/calendar;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = 'ashraf-housewarming.ics';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+}
+
+function addGoogleCalendar(e) {
+  if(e) e.preventDefault();
+  const url = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+    + '&text=Housewarming+%E2%80%94+Mohammed+Ashraf+K.+%26+Family'
+    + '&dates=20261130T043000Z%2F20261130T103000Z'
+    + '&details=You+are+cordially+invited+to+our+Housewarming+celebration!'
+    + '&location=Ashraf+Manzil%2C+Puthiyara%2C+Kozhikode%2C+Kerala+673004';
+  window.open(url, '_blank');
+}
+
+function addOutlook(e) {
+  if(e) e.preventDefault();
+  addAppleCalendar(e); // .ics works for Outlook too
+}
+
+// ── Gallery lightbox ───────────────────────────────────────────
+function openLightbox(caption) {
+  document.getElementById('lightbox').classList.add('open');
+  document.getElementById('lb-caption').textContent = caption;
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeLightbox(); });
 </script>
 </body>
 </html>
