@@ -3,99 +3,142 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Housewarming — Shaheer MK</title>
+<title>Housewarming — ELAF | Adv. Shaheer M K & Fousiya P</title>
 <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
 <style>
 :root {
   --white:    #FFFFFF;
-  --offwhite: #F7F8F7;
-  --black:    #0A0A0A;
-  --g900:     #1C1C1C;
-  --g700:     #3D3D3D;
-  --g500:     #6B7280;
-  --g300:     #D1D5DB;
-  --g200:     #E9ECEA;
-  --g100:     #F3F5F3;
-  --sg:       #6B9690;
-  --sg-lt:    #A8C4BF;
-  --sg-dk:    #4A7068;
-  --sg-bg:    #EEF3F1;
+  --offwhite: #F8FAF9;
+  --black:    #0C0E0D;
+  --g900:     #1A1D1C;
+  --g700:     #3B4240;
+  --g500:     #64706D;
+  --g300:     #CBD3D1;
+  --g200:     #E5EAE8;
+  --g100:     #F1F5F4;
+  --sg:       #5E8B84;
+  --sg-lt:    #9CBAB5;
+  --sg-dk:    #3E6862;
+  --sg-bg:    #EDF3F1;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
   background:var(--offwhite);
   color:var(--black);
   line-height:1.6;
   overflow-x:hidden;
 }
 .serif{font-family:Georgia,'Times New Roman',serif}
+
 .section-label{
   font-size:10px;letter-spacing:5px;text-transform:uppercase;
   color:var(--sg);font-weight:600;margin-bottom:10px;display:block;
 }
 .section-title{
   font-family:Georgia,serif;
-  font-size:clamp(26px,3.8vw,42px);
+  font-size:clamp(28px,3.8vw,44px);
   font-weight:400;color:var(--black);line-height:1.15;
 }
 .divider-line{width:48px;height:2px;background:var(--sg);margin:16px 0}
 .divider-center{margin:14px auto}
 
-/* reveal */
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+/* reveal animations */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
 .reveal.in{opacity:1;transform:translateY(0)}
 
 /* ── NAV ── */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
   display:flex;justify-content:space-between;align-items:center;
-  padding:15px 40px;
-  background:rgba(255,255,255,0.93);
-  backdrop-filter:blur(14px);
+  padding:14px 40px;
+  background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(16px);
   border-bottom:1px solid var(--g200);
-  transition:all .3s;
 }
-.nav-brand{font-family:Georgia,serif;font-size:15px;color:var(--black);letter-spacing:1px}
-.nav-brand em{color:var(--sg);font-style:normal}
+.nav-brand{
+  display:flex;align-items:center;gap:10px;
+  font-family:Georgia,serif;font-size:16px;color:var(--black);letter-spacing:1px;
+}
+.nav-logo-badge{
+  width:32px;height:32px;border:1.5px solid var(--sg);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:Georgia,serif;font-weight:700;color:var(--sg-dk);font-size:14px;
+}
 .nav-links{display:flex;gap:28px;list-style:none}
 .nav-links a{
   font-size:11px;letter-spacing:2px;text-transform:uppercase;
   color:var(--g500);text-decoration:none;transition:color .2s;
+  font-weight:500;
 }
-.nav-links a:hover{color:var(--sg)}
+.nav-links a:hover{color:var(--sg-dk)}
 
 /* ── HERO ── */
-#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:68px}
+#hero{min-height:100vh;display:grid;grid-template-columns:1.05fr 0.95fr;padding-top:68px}
 
 .hero-left{
   display:flex;flex-direction:column;justify-content:center;
-  padding:80px 56px;background:var(--white);position:relative;
+  padding:70px 56px;background:var(--white);position:relative;
 }
 .hero-left::after{
   content:'';position:absolute;right:0;top:10%;bottom:10%;
   width:1px;background:linear-gradient(to bottom,transparent,var(--g300),transparent);
 }
-.hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:22px}
-.hero-eyebrow .dot{width:8px;height:8px;background:var(--sg);border-radius:50%}
-.hero-eyebrow span{font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--sg);font-weight:600}
 
-.hero-name{
-  font-family:Georgia,serif;
-  font-size:clamp(34px,4.2vw,54px);
-  font-weight:400;color:var(--black);line-height:1.1;margin-bottom:8px;
-}
-.hero-family{
-  font-family:Georgia,serif;font-size:clamp(17px,2.2vw,22px);
-  color:var(--sg);font-style:italic;margin-bottom:26px;
-}
-.hero-date-pill{
-  display:inline-flex;align-items:center;gap:10px;
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
   background:var(--sg-bg);border:1px solid var(--sg-lt);
-  border-radius:50px;padding:10px 20px;
-  font-size:13px;color:var(--sg-dk);font-weight:500;margin-bottom:34px;
+  border-radius:50px;padding:6px 16px;margin-bottom:20px;
+  font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--sg-dk);font-weight:600;width:fit-content;
 }
+
+.house-title-wrap{
+  margin-bottom:14px;
+}
+.house-subhead{
+  font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--g500);margin-bottom:4px;
+}
+.house-name-display{
+  font-family:Georgia,serif;
+  font-size:clamp(44px,6vw,72px);
+  font-weight:700;letter-spacing:6px;
+  color:var(--black);line-height:1;margin-bottom:8px;
+}
+
+.hero-invitation-text{
+  font-size:13.5px;color:var(--g500);margin-bottom:20px;line-height:1.7;
+}
+
+.hosts-card{
+  background:var(--g100);
+  border-left:3px solid var(--sg);
+  padding:16px 20px;border-radius:0 10px 10px 0;
+  margin-bottom:24px;
+}
+.host-row{margin-bottom:10px}
+.host-row:last-child{margin-bottom:0}
+.host-main{
+  font-family:Georgia,serif;font-size:18px;font-weight:600;color:var(--black);
+}
+.host-parent{
+  font-size:12px;color:var(--g500);font-style:italic;margin-top:2px;
+}
+.ampersand{
+  font-family:Georgia,serif;font-style:italic;color:var(--sg);font-size:16px;margin:4px 0;display:block;
+}
+
+.hero-date-pill{
+  display:flex;align-items:center;gap:12px;
+  background:var(--black);color:var(--white);
+  border-radius:10px;padding:12px 20px;
+  margin-bottom:30px;width:fit-content;
+}
+.hdp-icon{font-size:18px}
+.hdp-date{font-size:13px;font-weight:600;letter-spacing:.5px}
+.hdp-time{font-size:12px;color:var(--sg-lt);letter-spacing:1px}
+
 .hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
 
 .btn-primary{
@@ -106,7 +149,7 @@ nav{
   text-decoration:none;font-weight:500;border:none;cursor:pointer;
   transition:all .25s;
 }
-.btn-primary:hover{background:var(--sg-dk);transform:translateY(-2px);box-shadow:0 8px 24px rgba(74,112,104,.3)}
+.btn-primary:hover{background:var(--sg-dk);transform:translateY(-2px);box-shadow:0 8px 24px rgba(62,104,98,.3)}
 
 .btn-outline{
   display:inline-flex;align-items:center;gap:8px;
@@ -118,181 +161,280 @@ nav{
 }
 .btn-outline:hover{border-color:var(--sg);color:var(--sg);transform:translateY(-2px)}
 
-.hero-right{position:relative;background:var(--sg-bg);overflow:hidden}
-.hero-photo-box{
-  position:absolute;inset:0;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  background:linear-gradient(145deg,#EEF3F1 0%,#D6E6E2 100%);
+/* Right side - House photo presentation */
+.hero-right{
+  position:relative;background:var(--g900);overflow:hidden;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
 }
-.photo-ph{
-  display:flex;flex-direction:column;align-items:center;
-  justify-content:center;gap:12px;color:var(--sg);opacity:.5;
+.hero-img-wrap{
+  position:relative;width:100%;height:100%;min-height:540px;
+  overflow:hidden;
+}
+.hero-img-wrap img{
+  width:100%;height:100%;object-fit:cover;object-position:center;
+  filter:contrast(1.04) brightness(0.98);
+  transition:transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hero-img-wrap:hover img{
+  transform:scale(1.03);
 }
 
+.hero-img-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top, rgba(12,14,13,0.85) 0%, rgba(12,14,13,0.15) 50%, rgba(12,14,13,0.4) 100%);
+  pointer-events:none;
+}
+
+.hero-img-badge{
+  position:absolute;top:28px;right:28px;
+  background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);
+  padding:8px 16px;border-radius:50px;
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--sg-dk);font-weight:600;box-shadow:0 4px 16px rgba(0,0,0,0.15);
+}
+
+/* Countdown bar inside hero */
 .hero-countdown{
-  position:absolute;bottom:28px;left:0;right:0;
-  display:flex;justify-content:center;gap:14px;z-index:5;
+  position:absolute;bottom:28px;left:24px;right:24px;
+  display:flex;justify-content:center;gap:12px;z-index:5;
 }
 .cd-unit{
-  text-align:center;background:rgba(255,255,255,.88);
-  backdrop-filter:blur(10px);border:1px solid rgba(107,150,144,.25);
-  border-radius:10px;padding:12px 14px;min-width:58px;
+  text-align:center;background:rgba(255,255,255,.94);
+  backdrop-filter:blur(12px);border:1px solid rgba(94,139,132,.3);
+  border-radius:10px;padding:12px 14px;min-width:62px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.15);
 }
 .cd-num{display:block;font-size:22px;font-weight:700;color:var(--sg-dk);line-height:1;font-variant-numeric:tabular-nums}
 .cd-lbl{display:block;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--g500);margin-top:4px}
 
-/* ── DETAILS BAR ── */
-#details-bar{background:var(--black);display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr}
+/* ── DETAILS STRIP ── */
+#details-bar{background:var(--black);display:grid;grid-template-columns:1fr 1px 1fr 1px 1.2fr}
 .bar-sep{background:rgba(255,255,255,.1)}
-.bar-item{padding:38px 44px;display:flex;flex-direction:column;gap:4px;transition:background .3s}
-.bar-item:hover{background:rgba(107,150,144,.08)}
-.bar-icon{width:34px;height:34px;background:rgba(107,150,144,.15);border-radius:8px;
-  display:flex;align-items:center;justify-content:center;font-size:15px;margin-bottom:10px}
+.bar-item{padding:36px 40px;display:flex;flex-direction:column;gap:4px;transition:background .3s}
+.bar-item:hover{background:rgba(94,139,132,.08)}
+.bar-icon{width:36px;height:36px;background:rgba(94,139,132,.15);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;font-size:16px;margin-bottom:10px}
 .bar-lbl{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--sg-lt);font-weight:600}
 .bar-val{font-family:Georgia,serif;font-size:clamp(16px,2vw,22px);color:var(--white);font-weight:400;line-height:1.2}
-.bar-sub{font-size:12px;color:rgba(255,255,255,.38);margin-top:2px}
+.bar-sub{font-size:12px;color:rgba(255,255,255,.45);margin-top:2px}
 
-/* ── MESSAGE ── */
-#message{background:var(--sg-bg);padding:100px 40px;text-align:center;position:relative;overflow:hidden}
+/* ── INVITATION MESSAGE ── */
+#message{background:var(--sg-bg);padding:90px 40px;text-align:center;position:relative;overflow:hidden}
 #message::before{
   content:'"';position:absolute;top:-40px;left:50%;transform:translateX(-50%);
-  font-family:Georgia,serif;font-size:280px;color:rgba(107,150,144,.07);
+  font-family:Georgia,serif;font-size:280px;color:rgba(94,139,132,.08);
   line-height:1;pointer-events:none;user-select:none;
 }
-.msg-inner{max-width:620px;margin:0 auto;position:relative}
+.msg-inner{max-width:680px;margin:0 auto;position:relative}
 .open-q{font-family:Georgia,serif;font-size:72px;color:var(--sg-lt);line-height:.5;display:block;margin-bottom:20px}
 .msg-text{
-  font-family:Georgia,serif;font-size:clamp(15px,1.9vw,21px);
-  color:var(--g700);line-height:1.85;font-style:italic;margin-bottom:28px;
+  font-family:Georgia,serif;font-size:clamp(16px,1.9vw,22px);
+  color:var(--g700);line-height:1.85;font-style:italic;margin-bottom:30px;
 }
 .sig{display:flex;flex-direction:column;align-items:center;gap:4px}
-.sig-line{width:50px;height:1px;background:var(--sg);margin-bottom:10px}
-.sig-name{font-family:Georgia,serif;font-size:16px;color:var(--black)}
-.sig-sub{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--sg)}
+.sig-line{width:50px;height:1px;background:var(--sg);margin-bottom:12px}
+.sig-name{font-family:Georgia,serif;font-size:18px;color:var(--black);font-weight:600}
+.sig-sub{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--sg-dk)}
+
+/* Family happiness list */
+.happiness-box{
+  margin-top:36px;padding:20px 28px;
+  background:rgba(255,255,255,0.7);backdrop-filter:blur(8px);
+  border:1px solid rgba(94,139,132,0.25);border-radius:12px;
+}
+.hb-title{
+  font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--sg-dk);
+  font-weight:600;margin-bottom:8px;
+}
+.hb-names{
+  font-family:Georgia,serif;font-size:14px;color:var(--g700);
+  line-height:1.7;
+}
 
 /* ── CALENDAR ── */
-#calendar{background:var(--white);padding:100px 40px}
-.cal-inner{max-width:780px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+#calendar{background:var(--white);padding:90px 40px}
+.cal-inner{max-width:820px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
 
-/* single smart add-to-calendar button */
 .smart-cal-btn{
   display:flex;align-items:center;gap:14px;
-  width:100%;padding:18px 22px;margin-top:28px;
+  width:100%;padding:18px 22px;margin-top:24px;
   background:var(--black);color:var(--white);
   border:none;border-radius:12px;cursor:pointer;
   text-align:left;transition:all .28s;
 }
-.smart-cal-btn:hover{background:var(--sg-dk);transform:translateY(-3px);box-shadow:0 12px 32px rgba(74,112,104,.35)}
+.smart-cal-btn:hover{background:var(--sg-dk);transform:translateY(-3px);box-shadow:0 12px 32px rgba(62,104,98,.35)}
 .smart-cal-btn .scb-icon{
   width:44px;height:44px;background:rgba(255,255,255,.12);
   border-radius:9px;display:flex;align-items:center;justify-content:center;
   font-size:22px;flex-shrink:0;
 }
 .scb-text strong{display:block;font-size:15px;font-weight:600;letter-spacing:.3px}
-.scb-text small{font-size:11px;color:rgba(255,255,255,.5);margin-top:2px;display:block;letter-spacing:.5px}
+.scb-text small{font-size:11px;color:rgba(255,255,255,.55);margin-top:2px;display:block;letter-spacing:.5px}
 
 /* calendar visual */
-.cal-visual{background:var(--black);border-radius:18px;overflow:hidden;box-shadow:0 20px 56px rgba(0,0,0,.18)}
+.cal-visual{background:var(--black);border-radius:18px;overflow:hidden;box-shadow:0 20px 56px rgba(0,0,0,.15)}
 .cal-head{background:var(--sg-dk);padding:20px 24px 16px;display:flex;justify-content:space-between;align-items:center}
-.cal-month-lbl{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.cal-month-lbl{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.8)}
 .cal-year-lbl{font-family:Georgia,serif;font-size:28px;color:var(--white)}
 .cal-body{padding:20px 24px 24px}
 .cal-wds{display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:8px}
-.cal-wd{text-align:center;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.3);padding:4px 0;text-transform:uppercase}
+.cal-wd{text-align:center;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.35);padding:4px 0;text-transform:uppercase}
 .cal-days{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
-.cal-d{text-align:center;padding:7px 4px;font-size:12px;color:rgba(255,255,255,.45);border-radius:6px}
+.cal-d{text-align:center;padding:7px 4px;font-size:12px;color:rgba(255,255,255,.5);border-radius:6px}
 .cal-d.empty{opacity:0}
 .cal-d.other{color:rgba(255,255,255,.12)}
 .cal-d.today{
   background:var(--sg);color:var(--white);font-weight:700;font-size:14px;
-  box-shadow:0 4px 16px rgba(107,150,144,.55);
+  box-shadow:0 4px 16px rgba(94,139,132,.55);
   animation:calPulse 2s ease-in-out infinite;
 }
 @keyframes calPulse{
-  0%,100%{box-shadow:0 4px 16px rgba(107,150,144,.55)}
-  50%{box-shadow:0 4px 28px rgba(107,150,144,.95)}
+  0%,100%{box-shadow:0 4px 16px rgba(94,139,132,.55)}
+  50%{box-shadow:0 4px 28px rgba(94,139,132,.95)}
 }
 
-/* ── GALLERY ── */
-#gallery{background:var(--g100);padding:100px 40px}
-.gal-header{text-align:center;margin-bottom:48px}
+/* ── ARCHITECTURE GALLERY (NO FAMILY PHOTOS) ── */
+#gallery{background:var(--g100);padding:90px 40px}
+.gal-header{text-align:center;margin-bottom:44px}
 .gal-grid{
-  max-width:960px;margin:0 auto;
-  display:grid;grid-template-columns:1.6fr 1fr;grid-template-rows:320px 240px;gap:12px;
+  max-width:980px;margin:0 auto;
+  display:grid;grid-template-columns:1.5fr 1fr;grid-template-rows:320px 240px;gap:14px;
 }
 .gi{
   border-radius:14px;overflow:hidden;position:relative;
-  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;
-  cursor:pointer;transition:transform .3s,box-shadow .3s;
+  cursor:pointer;background:var(--g900);
+  transition:transform .3s,box-shadow .3s;
 }
-.gi:hover{transform:scale(1.015);box-shadow:0 18px 48px rgba(0,0,0,.14)}
+.gi:hover{transform:scale(1.015);box-shadow:0 18px 48px rgba(0,0,0,.18)}
 .gi.tall{grid-row:1/3}
-.gi-house   {background:linear-gradient(135deg,#C8D8D5,#A4BAB7)}
-.gi-family  {background:linear-gradient(135deg,#D0DADA,#B8CCCB)}
-.gi-exterior{background:linear-gradient(135deg,#C2D2CF,#ABBCB9)}
-.gi-members {background:linear-gradient(135deg,#CAD6D3,#B5C8C5)}
+.gi img{
+  width:100%;height:100%;object-fit:cover;object-position:center;
+  transition:transform .8s ease;
+}
+.gi:hover img{transform:scale(1.05)}
 .gi-label{
   position:absolute;bottom:0;left:0;right:0;
-  padding:24px 18px 16px;
-  background:linear-gradient(to top,rgba(10,10,10,.55),transparent);
+  padding:24px 18px 14px;
+  background:linear-gradient(to top,rgba(12,14,13,.85),transparent);
   color:var(--white);font-size:13px;font-weight:500;
 }
-.gi-tag{display:block;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:2px}
-.gi-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:rgba(255,255,255,.35)}
+.gi-tag{display:block;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--sg-lt);margin-bottom:2px}
 
-/* lightbox */
+/* Lightbox */
 .lb{
   display:none;position:fixed;inset:0;z-index:999;
-  background:rgba(0,0,0,.93);align-items:center;justify-content:center;flex-direction:column;gap:14px;
+  background:rgba(0,0,0,.94);align-items:center;justify-content:center;flex-direction:column;gap:14px;
 }
 .lb.open{display:flex;animation:lbIn .2s ease}
 @keyframes lbIn{from{opacity:0}to{opacity:1}}
 .lb-x{
-  position:absolute;top:22px;right:30px;color:rgba(255,255,255,.5);
+  position:absolute;top:22px;right:30px;color:rgba(255,255,255,.6);
   font-size:28px;cursor:pointer;background:none;border:none;line-height:1;transition:color .2s;
 }
 .lb-x:hover{color:white}
 .lb-box{
-  max-width:680px;width:90%;border-radius:14px;overflow:hidden;
-  background:var(--g200);display:flex;align-items:center;justify-content:center;min-height:380px;
+  max-width:850px;width:92%;max-height:80vh;border-radius:14px;overflow:hidden;
+  background:var(--black);display:flex;align-items:center;justify-content:center;
 }
-.lb-cap{color:rgba(255,255,255,.5);font-size:12px;letter-spacing:2px;text-transform:uppercase}
+.lb-box img{width:100%;height:auto;max-height:78vh;object-fit:contain}
+.lb-cap{color:rgba(255,255,255,.6);font-size:12px;letter-spacing:2px;text-transform:uppercase}
 
-/* ── VENUE ── */
-#venue{background:var(--white);padding:100px 40px}
-.venue-inner{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1.3fr;gap:60px;align-items:start}
-.venue-card{position:sticky;top:88px}
-.addr-block{margin-top:24px;display:flex;flex-direction:column;gap:16px}
+/* ── VENUE & ALL KINDS OF MAPS ── */
+#venue{background:var(--white);padding:90px 40px}
+.venue-inner{max-width:1060px;margin:0 auto}
+
+.venue-header{text-align:center;margin-bottom:50px}
+
+.venue-split{
+  display:grid;grid-template-columns:1fr 1.35fr;gap:48px;align-items:start;
+}
+
+.venue-info-card{
+  background:var(--g100);border:1px solid var(--g200);
+  border-radius:16px;padding:32px 28px;
+}
+
+.addr-block{display:flex;flex-direction:column;gap:18px}
 .addr-row{display:flex;gap:14px;align-items:flex-start}
 .addr-icon{
-  width:36px;height:36px;border-radius:8px;background:var(--sg-bg);
-  border:1px solid rgba(107,150,144,.2);
-  display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;margin-top:2px;
+  width:38px;height:38px;border-radius:8px;background:var(--sg-bg);
+  border:1px solid rgba(94,139,132,.3);
+  display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;margin-top:2px;
 }
-.addr-text strong{display:block;font-size:13px;font-weight:600;color:var(--black);margin-bottom:2px}
-.addr-text span{font-size:13px;color:var(--g500);line-height:1.65}
+.addr-text strong{display:block;font-size:13.5px;font-weight:600;color:var(--black);margin-bottom:2px}
+.addr-text span{font-size:13px;color:var(--g500);line-height:1.6}
 
-/* single smart directions button */
-.smart-map-btn{
-  display:flex;align-items:center;gap:14px;
-  width:100%;padding:18px 22px;margin-top:28px;
+/* Coordinates box with copy button */
+.coord-box{
+  margin-top:20px;padding:14px 18px;
+  background:var(--white);border:1px solid var(--g300);border-radius:10px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.coord-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--g500)}
+.coord-val{font-family:monospace;font-size:13px;font-weight:600;color:var(--sg-dk);margin-top:2px}
+.copy-btn{
+  background:var(--sg-bg);border:1px solid var(--sg-lt);border-radius:6px;
+  padding:6px 12px;font-size:11px;font-weight:600;color:var(--sg-dk);cursor:pointer;
+  transition:all .2s;
+}
+.copy-btn:hover{background:var(--sg-dk);color:white}
+
+/* Action buttons for all map types */
+.map-actions-group{
+  display:flex;flex-direction:column;gap:10px;margin-top:24px;
+}
+
+.map-action-btn{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 18px;border-radius:10px;text-decoration:none;
+  font-size:13px;font-weight:600;transition:all .25s;cursor:pointer;
+}
+.map-action-btn.primary{
   background:var(--black);color:var(--white);
-  border:none;border-radius:12px;cursor:pointer;
-  text-align:left;text-decoration:none;transition:all .28s;
 }
-.smart-map-btn:hover{background:var(--sg-dk);transform:translateY(-3px);box-shadow:0 12px 32px rgba(74,112,104,.35)}
-.smart-map-btn .smb-icon{
-  width:44px;height:44px;background:rgba(255,255,255,.12);
-  border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;
+.map-action-btn.primary:hover{
+  background:var(--sg-dk);transform:translateY(-2px);box-shadow:0 8px 24px rgba(62,104,98,.3);
 }
-.smb-text strong{display:block;font-size:15px;font-weight:600}
-.smb-text small{font-size:11px;color:rgba(255,255,255,.5);display:block;margin-top:2px;letter-spacing:.5px}
 
-/* SVG map container */
-.map-panel{border-radius:18px;overflow:hidden;border:1px solid var(--g200);box-shadow:0 12px 40px rgba(0,0,0,.07);position:relative}
-.map-badge{
-  position:absolute;top:14px;left:14px;
-  background:rgba(255,255,255,.95);backdrop-filter:blur(8px);
+.map-action-btn.secondary{
+  background:var(--white);color:var(--black);border:1px solid var(--g300);
+}
+.map-action-btn.secondary:hover{
+  border-color:var(--sg);color:var(--sg-dk);transform:translateY(-2px);
+}
+
+/* Map tabs */
+.map-tabs{
+  display:flex;gap:8px;margin-bottom:14px;background:var(--g100);
+  padding:4px;border-radius:10px;width:fit-content;
+}
+.map-tab-btn{
+  padding:8px 16px;border-radius:7px;border:none;background:transparent;
+  font-size:12px;font-weight:600;color:var(--g500);cursor:pointer;transition:all .2s;
+}
+.map-tab-btn.active{
+  background:var(--white);color:var(--black);box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.map-view-container{
+  border-radius:16px;overflow:hidden;border:1px solid var(--g200);
+  box-shadow:0 12px 40px rgba(0,0,0,.08);background:var(--white);
+}
+.map-view-panel{display:none}
+.map-view-panel.active{display:block}
+
+/* Embedded Google Map iframe */
+.gmap-frame{
+  width:100%;height:440px;border:none;display:block;
+}
+
+/* SVG Schematic Map */
+.svg-map-wrapper{
+  background:#E9EFEA;position:relative;width:100%;
+}
+.map-pin-badge{
+  position:absolute;top:16px;left:16px;
+  background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
   border-radius:10px;padding:10px 14px;
   font-size:12px;font-weight:600;color:var(--black);
   box-shadow:0 4px 16px rgba(0,0,0,.12);
@@ -300,130 +442,160 @@ nav{
 }
 .pin-dot{width:9px;height:9px;background:var(--sg);border-radius:50%;animation:pinp 2s ease-in-out infinite;flex-shrink:0}
 @keyframes pinp{
-  0%,100%{box-shadow:0 0 0 0 rgba(107,150,144,.6)}
-  50%{box-shadow:0 0 0 7px rgba(107,150,144,0)}
+  0%,100%{box-shadow:0 0 0 0 rgba(94,139,132,.7)}
+  50%{box-shadow:0 0 0 8px rgba(94,139,132,0)}
 }
 
 /* ── RSVP ── */
-#rsvp{background:var(--black);padding:100px 40px;text-align:center}
-.rsvp-inner{max-width:540px;margin:0 auto}
+#rsvp{background:var(--black);padding:90px 40px;text-align:center}
+.rsvp-inner{max-width:580px;margin:0 auto}
 #rsvp .section-label{display:flex;justify-content:center}
 #rsvp .section-title{color:var(--white)}
-.rsvp-sub{color:rgba(255,255,255,.42);font-size:15px;margin:14px 0 36px;line-height:1.75}
+.rsvp-sub{color:rgba(255,255,255,.45);font-size:15px;margin:14px 0 32px;line-height:1.75}
+
 .rsvp-contacts{display:flex;flex-direction:column;gap:10px;margin-bottom:32px}
 .rsvp-row{
   display:flex;align-items:center;gap:14px;
-  padding:16px 20px;background:rgba(255,255,255,.05);
+  padding:15px 20px;background:rgba(255,255,255,.05);
   border:1px solid rgba(255,255,255,.08);border-radius:12px;
   text-decoration:none;transition:all .25s;color:var(--white);
 }
-.rsvp-row:hover{background:rgba(107,150,144,.12);border-color:var(--sg);transform:translateX(6px)}
+.rsvp-row:hover{background:rgba(94,139,132,.14);border-color:var(--sg);transform:translateX(6px)}
 .rsvp-icon{width:40px;height:40px;border-radius:10px;background:var(--sg-dk);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
 .rsvp-info{flex:1;text-align:left}
 .rsvp-name{font-size:13px;font-weight:600}
 .rsvp-num{font-size:15px;color:var(--sg-lt);font-family:Georgia,serif;margin-top:2px}
+
 .rsvp-wa{
   display:inline-flex;align-items:center;gap:10px;
-  background:#25D366;color:white;padding:14px 30px;
+  background:#25D366;color:white;padding:14px 32px;
   border-radius:10px;font-size:13px;font-weight:600;letter-spacing:1px;
   text-decoration:none;transition:all .25s;
 }
-.rsvp-wa:hover{background:#128C7E;transform:translateY(-2px);box-shadow:0 8px 22px rgba(37,211,102,.3)}
+.rsvp-wa:hover{background:#128C7E;transform:translateY(-2px);box-shadow:0 8px 22px rgba(37,211,102,.35)}
 
-/* footer */
+/* ── FOOTER ── */
 footer{
-  background:#050505;padding:30px 40px;
+  background:#070807;padding:34px 40px;
   display:flex;justify-content:space-between;align-items:center;
-  border-top:1px solid rgba(255,255,255,.05);
+  border-top:1px solid rgba(255,255,255,.06);
 }
-.foot-brand{font-family:Georgia,serif;color:rgba(255,255,255,.28);font-size:14px}
+.foot-brand{font-family:Georgia,serif;color:rgba(255,255,255,.4);font-size:14px}
 .foot-brand em{color:var(--sg);font-style:normal}
-.foot-loc{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.18)}
+.foot-loc{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.22)}
 
 /* ── RESPONSIVE ── */
-@media(max-width:768px){
+@media(max-width:860px){
   nav{padding:14px 20px}
   .nav-links{display:none}
-  #hero{grid-template-columns:1fr}
-  .hero-left{padding:48px 22px 36px}
+
+  #hero{grid-template-columns:1fr;padding-top:60px}
+  .hero-left{padding:44px 24px 36px}
   .hero-left::after{display:none}
-  .hero-right{min-height:280px}
+  .hero-right{min-height:360px}
+  .hero-img-wrap{min-height:360px}
+
   #details-bar{grid-template-columns:1fr}
   .bar-sep{width:100%;height:1px}
-  .bar-item{padding:26px 22px}
+  .bar-item{padding:26px 24px}
+
   .cal-inner{grid-template-columns:1fr;gap:36px}
-  .gal-grid{grid-template-columns:1fr;grid-template-rows:260px 200px 180px 180px}
+
+  .gal-grid{grid-template-columns:1fr;grid-template-rows:280px 200px 200px 200px}
   .gi.tall{grid-row:auto}
-  .venue-inner{grid-template-columns:1fr;gap:36px}
-  .venue-card{position:static}
+
+  .venue-split{grid-template-columns:1fr;gap:36px}
+
   #message,#calendar,#gallery,#venue,#rsvp{padding:70px 22px}
-  footer{flex-direction:column;gap:8px;text-align:center}
+  footer{flex-direction:column;gap:10px;text-align:center}
 }
 </style>
 </head>
 <body>
 
-<!-- lightbox -->
+<!-- LIGHTBOX -->
 <div class="lb" id="lb" onclick="closeLb()">
   <button class="lb-x" onclick="closeLb()">✕</button>
-  <div class="lb-box">
-    <div class="gi-ph" style="min-height:300px;">
-      <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-        <rect x="6" y="26" width="48" height="30" rx="3" stroke="#6B9690" stroke-width="2"/>
-        <path d="M3 28L30 6l27 22" stroke="#6B9690" stroke-width="2.2" stroke-linecap="round"/>
-        <rect x="20" y="36" width="20" height="20" rx="2" stroke="#6B9690" stroke-width="1.8"/>
-      </svg>
-      <span style="font-size:11px;letter-spacing:2px;color:#6B9690;">PHOTO PREVIEW</span>
-    </div>
+  <div class="lb-box" onclick="event.stopPropagation()">
+    <img id="lb-img" src="./elaf_house.jpg" alt="ELAF House"/>
   </div>
-  <div class="lb-cap" id="lb-cap">Photo</div>
+  <div class="lb-cap" id="lb-cap">ELAF — Architecture</div>
 </div>
 
-<!-- NAV -->
+<!-- NAVIGATION -->
 <nav>
-  <div class="nav-brand serif">Shaheer <em>&</em> Family</div>
+  <div class="nav-brand">
+    <div class="nav-logo-badge">E</div>
+    <span>ELAF <em>&</em> Housewarming</span>
+  </div>
   <ul class="nav-links">
-    <li><a href="#message">Message</a></li>
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#message">Invitation</a></li>
     <li><a href="#calendar">Calendar</a></li>
-    <li><a href="#gallery">Photos</a></li>
-    <li><a href="#venue">Venue</a></li>
+    <li><a href="#gallery">Architecture</a></li>
+    <li><a href="#venue">Location</a></li>
     <li><a href="#rsvp">RSVP</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
+<!-- HERO SECTION -->
 <section id="hero">
   <div class="hero-left">
-    <div class="hero-eyebrow reveal">
-      <div class="dot"></div>
-      <span>Housewarming Invitation</span>
+    <div class="hero-badge reveal">
+      <span>✦ &nbsp; Housewarming Ceremony &nbsp; ✦</span>
     </div>
-    <h1 class="hero-name reveal" style="transition-delay:.08s">Shaheer<br/>MK</h1>
-    <p class="hero-family reveal" style="transition-delay:.14s">& Family</p>
-    <div class="hero-date-pill reveal" style="transition-delay:.2s">
-      📅 &nbsp; Saturday, 5 December 2026
+
+    <div class="house-title-wrap reveal" style="transition-delay:.06s">
+      <div class="house-subhead">Our New Abode</div>
+      <div class="house-name-display">ELAF</div>
     </div>
+
+    <p class="hero-invitation-text reveal" style="transition-delay:.12s">
+      Cordially invite your esteemed presence with family to grace the auspicious occasion of our housewarming ceremony.
+    </p>
+
+    <!-- Hosts details directly from PDF -->
+    <div class="hosts-card reveal" style="transition-delay:.16s">
+      <div class="host-row">
+        <div class="host-main">Mr. Adv. Shaheer M K</div>
+        <div class="host-parent">(S/o Hamsa M K (Late) &amp; Shakkeela)</div>
+      </div>
+      <span class="ampersand">&amp;</span>
+      <div class="host-row">
+        <div class="host-main">Mrs. Fousiya P</div>
+        <div class="host-parent">(D/o Abdulla Padath (Late) &amp; Khadeeja)</div>
+      </div>
+      <div style="margin-top:8px;font-size:11px;color:var(--sg-dk);letter-spacing:1px;font-weight:500;">
+        Moodadi Kandy House · Hill Bazar · Moodady North · Koyilandy
+      </div>
+    </div>
+
+    <!-- Date & Time Banner -->
+    <div class="hero-date-pill reveal" style="transition-delay:.22s">
+      <div class="hdp-icon">📅</div>
+      <div>
+        <div class="hdp-date">Saturday, 05 December 2026</div>
+        <div class="hdp-time">Evening from 4:00 PM to 9:00 PM</div>
+      </div>
+    </div>
+
     <div class="hero-ctas reveal" style="transition-delay:.26s">
-      <a href="#rsvp" class="btn-primary">RSVP Now</a>
-      <a href="#venue" class="btn-outline">View Venue</a>
+      <a href="#venue" class="btn-primary">View Location Map</a>
+      <a href="#rsvp" class="btn-outline">RSVP Now</a>
     </div>
   </div>
 
+  <!-- Right: Official Architectural Sketch of ELAF -->
   <div class="hero-right">
-    <div class="hero-photo-box">
-      <div class="photo-ph">
-        <svg width="110" height="110" viewBox="0 0 110 110" fill="none">
-          <path d="M14 52L55 14l41 38" stroke="#4A7068" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-          <rect x="20" y="52" width="70" height="46" rx="2" stroke="#4A7068" stroke-width="2.4"/>
-          <rect x="40" y="66" width="30" height="32" rx="2" stroke="#4A7068" stroke-width="2"/>
-          <rect x="26" y="58" width="18" height="16" rx="1.5" stroke="#4A7068" stroke-width="1.8"/>
-          <rect x="66" y="58" width="18" height="16" rx="1.5" stroke="#4A7068" stroke-width="1.8"/>
-        </svg>
-        <span style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--sg-dk);font-weight:500;">House Photo</span>
-      </div>
+    <div class="hero-img-wrap">
+      <img src="./elaf_house.jpg" alt="ELAF House Architecture"/>
+      <div class="hero-img-overlay"></div>
+      <div class="hero-img-badge">Architectural Sketch</div>
     </div>
+
+    <!-- Live Countdown -->
     <div class="hero-countdown">
-      <div class="cd-unit"><span class="cd-num" id="cd-d">20</span><span class="cd-lbl">Days</span></div>
+      <div class="cd-unit"><span class="cd-num" id="cd-d">00</span><span class="cd-lbl">Days</span></div>
       <div class="cd-unit"><span class="cd-num" id="cd-h">00</span><span class="cd-lbl">Hours</span></div>
       <div class="cd-unit"><span class="cd-num" id="cd-m">00</span><span class="cd-lbl">Mins</span></div>
       <div class="cd-unit"><span class="cd-num" id="cd-s">00</span><span class="cd-lbl">Secs</span></div>
@@ -436,40 +608,50 @@ footer{
   <div class="bar-item reveal">
     <div class="bar-icon">📅</div>
     <span class="bar-lbl">Date</span>
-    <div class="bar-val">5 December 2026</div>
-    <div class="bar-sub">Saturday · Koyilandy, Kozhikode</div>
+    <div class="bar-val">05 December 2026</div>
+    <div class="bar-sub">Saturday · Evening Reception</div>
   </div>
   <div class="bar-sep"></div>
   <div class="bar-item reveal" style="transition-delay:.08s">
     <div class="bar-icon">⏰</div>
     <span class="bar-lbl">Time</span>
-    <div class="bar-val">10:00 AM</div>
-    <div class="bar-sub">Lunch reception from 12:30 PM</div>
+    <div class="bar-val">4:00 PM – 9:00 PM</div>
+    <div class="bar-sub">Evening reception &amp; refreshments</div>
   </div>
   <div class="bar-sep"></div>
   <div class="bar-item reveal" style="transition-delay:.14s">
     <div class="bar-icon">📍</div>
     <span class="bar-lbl">Venue</span>
-    <div class="bar-val">Shaheer's Residence</div>
-    <div class="bar-sub">Koyilandy, Kozhikode — 673 305</div>
+    <div class="bar-val">ELAF</div>
+    <div class="bar-sub">Moodadi Kandy House, Hill Bazar, Moodady North, Koyilandy</div>
   </div>
 </div>
 
-<!-- MESSAGE -->
+<!-- INVITATION MESSAGE -->
 <section id="message">
   <div class="msg-inner">
     <span class="open-q reveal">"</span>
     <p class="msg-text reveal" style="transition-delay:.08s">
-      After years of dreaming, months of planning, and countless moments
-      of anticipation — we are finally home. This new chapter wouldn't feel
-      complete without the people who have always been our home: you.
-      We warmly invite you to step through our doors, share in our joy,
-      and bless this space with your presence, love, and laughter.
+      "With gratitude in our hearts and joy in our new beginning,
+      we cordially invite your esteemed presence with family
+      to grace the auspicious occasion of the housewarming ceremony
+      of our new abode — <strong>ELAF</strong>.
+      Your presence and warm wishes will make this milestone truly memorable."
     </p>
+
     <div class="sig reveal" style="transition-delay:.14s">
       <div class="sig-line"></div>
-      <span class="sig-name">Shaheer MK</span>
-      <span class="sig-sub">& Family · Koyilandy, Kozhikode</span>
+      <span class="sig-name">Adv. Shaheer M K &amp; Fousiya P</span>
+      <span class="sig-sub">ELAF · Moodady North, Koyilandy</span>
+    </div>
+
+    <!-- Sharing the happiness list from PDF -->
+    <div class="happiness-box reveal" style="transition-delay:.18s">
+      <div class="hb-title">Sharing the Happiness</div>
+      <div class="hb-names">
+        Shakkeela Hamsa &nbsp;·&nbsp; Fyha Fathima &nbsp;·&nbsp; Aydin Hamsa &nbsp;·&nbsp; Hatim Abdulla &nbsp;·&nbsp; Ayyash<br/>
+        <span style="font-size:12px;color:var(--g500);letter-spacing:1px;margin-top:4px;display:inline-block;">Friends &amp; Relatives</span>
+      </div>
     </div>
   </div>
 </section>
@@ -478,20 +660,19 @@ footer{
 <section id="calendar">
   <div class="cal-inner">
     <div class="reveal">
-      <span class="section-label">Don't Miss It</span>
+      <span class="section-label">Mark Your Calendar</span>
       <h2 class="section-title">Save<br/>the Date</h2>
       <div class="divider-line"></div>
-      <p style="color:var(--g500);font-size:14px;line-height:1.8;max-width:320px;">
-        Tap the button below — it will automatically add the event to
-        the calendar on your device.
+      <p style="color:var(--g500);font-size:14px;line-height:1.8;max-width:340px;">
+        Tap below to add this event automatically to your device's calendar
+        with location and timing preset.
       </p>
 
-      <!-- Single smart button -->
       <button class="smart-cal-btn" onclick="smartAddCalendar()">
         <div class="scb-icon">📅</div>
         <div class="scb-text">
           <strong>Add to Calendar</strong>
-          <small>Opens in your device's calendar app</small>
+          <small>Saturday, 05 Dec 2026 · 4:00 PM – 9:00 PM</small>
         </div>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="margin-left:auto;opacity:.5">
           <path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -499,7 +680,7 @@ footer{
       </button>
     </div>
 
-    <!-- December 2026 visual calendar -->
+    <!-- December 2026 calendar visual -->
     <div class="cal-visual reveal" style="transition-delay:.1s">
       <div class="cal-head">
         <span class="cal-month-lbl">December</span>
@@ -511,11 +692,10 @@ footer{
           <div class="cal-wd">W</div><div class="cal-wd">T</div><div class="cal-wd">F</div><div class="cal-wd">S</div>
         </div>
         <div class="cal-days">
-          <!-- Dec 1, 2026 = Tuesday → 2 empty slots -->
           <div class="cal-d empty"></div><div class="cal-d empty"></div>
           <div class="cal-d">1</div><div class="cal-d">2</div>
           <div class="cal-d">3</div><div class="cal-d">4</div>
-          <div class="cal-d today" title="Housewarming!">5</div>
+          <div class="cal-d today" title="ELAF Housewarming!">5</div>
           <div class="cal-d">6</div><div class="cal-d">7</div><div class="cal-d">8</div>
           <div class="cal-d">9</div><div class="cal-d">10</div><div class="cal-d">11</div>
           <div class="cal-d">12</div><div class="cal-d">13</div><div class="cal-d">14</div>
@@ -532,248 +712,333 @@ footer{
   </div>
 </section>
 
-<!-- GALLERY -->
+<!-- ARCHITECTURE GALLERY (NO FAMILY PHOTOS) -->
 <section id="gallery">
   <div class="gal-header reveal">
-    <span class="section-label" style="display:block;text-align:center;">Our New Home</span>
-    <h2 class="section-title" style="text-align:center;">A Glimpse of<br/>Our New Beginning</h2>
+    <span class="section-label" style="display:block;text-align:center;">Architectural Design</span>
+    <h2 class="section-title" style="text-align:center;">The Making of<br/>ELAF</h2>
     <div class="divider-line divider-center"></div>
+    <p style="color:var(--g500);font-size:13px;max-width:480px;margin:0 auto;">
+      A showcase of the modern architecture, contemporary gabled roof, and glass façade of our new abode.
+    </p>
   </div>
+
   <div class="gal-grid reveal" style="transition-delay:.08s">
-
-    <div class="gi gi-house tall" onclick="openLb('Our New Home — Shaheer\'s Residence')">
-      <div class="gi-ph">
-        <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-          <path d="M6 28L30 8l24 20" stroke="white" stroke-width="2.4" stroke-linecap="round"/>
-          <rect x="8" y="28" width="44" height="28" rx="2" stroke="white" stroke-width="2"/>
-          <rect x="20" y="36" width="20" height="20" rx="1.5" stroke="white" stroke-width="1.8"/>
-          <rect x="12" y="32" width="12" height="10" rx="1" stroke="white" stroke-width="1.5"/>
-          <rect x="36" y="32" width="12" height="10" rx="1" stroke="white" stroke-width="1.5"/>
-        </svg>
-        <span style="font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.5)">HOUSE FRONT</span>
+    <!-- Main Elevation View -->
+    <div class="gi tall" onclick="openLb('./elaf_house.jpg', 'ELAF — Front Elevation &amp; Architecture')">
+      <img src="./elaf_house.jpg" alt="ELAF Front Elevation"/>
+      <div class="gi-label">
+        <span class="gi-tag">Primary Elevation</span>
+        ELAF — Front Façade &amp; Balcony
       </div>
-      <div class="gi-label"><span class="gi-tag">Main Photo</span>Shaheer's Residence</div>
     </div>
 
-    <div class="gi gi-family" onclick="openLb('Family Group Photo')">
-      <div class="gi-ph">
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-          <circle cx="14" cy="12" r="6" stroke="white" stroke-width="1.8"/>
-          <circle cx="34" cy="12" r="6" stroke="white" stroke-width="1.8"/>
-          <circle cx="24" cy="14" r="4.5" stroke="white" stroke-width="1.5"/>
-          <path d="M3 42c0-6 4-10 11-10s11 4 11 10" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
-          <path d="M22 42c0-5 4-9 10-9s10 4 10 9" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
-        </svg>
-        <span style="font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.5)">FAMILY</span>
+    <!-- Upper Terrace & Gable Detail -->
+    <div class="gi" onclick="openLb('./elaf_house.jpg', 'Gabled Roof &amp; Contemporary Glass Front')">
+      <img src="./elaf_house.jpg" alt="Gabled Glass Architecture" style="object-position:top center;"/>
+      <div class="gi-label">
+        <span class="gi-tag">Upper Level</span>
+        Gabled Roof &amp; Glass Architecture
       </div>
-      <div class="gi-label"><span class="gi-tag">Group Photo</span>The Family Together</div>
     </div>
 
-    <div class="gi gi-exterior" onclick="openLb('House — Exterior View')">
-      <div class="gi-ph">
-        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
-          <rect x="6" y="18" width="32" height="22" rx="2" stroke="white" stroke-width="2"/>
-          <path d="M3 20L22 5l19 15" stroke="white" stroke-width="2" stroke-linecap="round"/>
-          <rect x="15" y="26" width="14" height="14" rx="1" stroke="white" stroke-width="1.5"/>
-          <line x1="22" y1="26" x2="22" y2="40" stroke="white" stroke-width="1"/>
-        </svg>
-        <span style="font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.5)">EXTERIOR</span>
+    <!-- Entrance & Landscape -->
+    <div class="gi" onclick="openLb('./elaf_house.jpg', 'Portico &amp; Landscape Entry')">
+      <img src="./elaf_house.jpg" alt="Portico Entry" style="object-position:bottom left;"/>
+      <div class="gi-label">
+        <span class="gi-tag">Ground Level</span>
+        Portico Entry &amp; Paved Driveway
       </div>
-      <div class="gi-label"><span class="gi-tag">Photo</span>Exterior View</div>
     </div>
-
-    <div class="gi gi-members" onclick="openLb('Family Members')">
-      <div class="gi-ph">
-        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
-          <circle cx="13" cy="11" r="5.5" stroke="white" stroke-width="1.8"/>
-          <circle cx="31" cy="11" r="5.5" stroke="white" stroke-width="1.8"/>
-          <path d="M3 36c0-6 4-10 10-10s10 4 10 10" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
-          <path d="M21 36c0-6 4-10 10-10s10 4 10 10" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
-        </svg>
-        <span style="font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.5)">MEMBERS</span>
-      </div>
-      <div class="gi-label"><span class="gi-tag">Photo</span>Family Members</div>
-    </div>
-
   </div>
-  <p style="text-align:center;color:var(--g500);font-size:12px;margin-top:18px;font-style:italic;letter-spacing:.5px">
-    Click any photo to preview &nbsp;·&nbsp; Replace placeholders with your real photos
+
+  <p style="text-align:center;color:var(--g500);font-size:12px;margin-top:18px;font-style:italic;">
+    Click on any image to inspect the high-resolution architectural sketch
   </p>
 </section>
 
-<!-- VENUE -->
+<!-- VENUE & COMPREHENSIVE LOCATION MAPS -->
 <section id="venue">
   <div class="venue-inner">
-
-    <div class="venue-card reveal">
-      <span class="section-label">Find Us</span>
-      <h2 class="section-title">Venue &<br/>Location</h2>
-      <div class="divider-line"></div>
-      <div class="addr-block">
-        <div class="addr-row">
-          <div class="addr-icon">🏠</div>
-          <div class="addr-text">
-            <strong>Shaheer's Residence</strong>
-            <span>Koyilandy, Kozhikode<br/>Kerala — 673 305</span>
-          </div>
-        </div>
-        <div class="addr-row">
-          <div class="addr-icon">🕙</div>
-          <div class="addr-text">
-            <strong>Arrival Time</strong>
-            <span>10:00 AM onwards<br/>Lunch from 12:30 PM</span>
-          </div>
-        </div>
-        <div class="addr-row">
-          <div class="addr-icon">📌</div>
-          <div class="addr-text">
-            <strong>Landmark</strong>
-            <span>Near Koyilandy Town<br/>Kozhikode District</span>
-          </div>
-        </div>
-        <div class="addr-row">
-          <div class="addr-icon">🚗</div>
-          <div class="addr-text">
-            <strong>Getting Here</strong>
-            <span>5 min from Koyilandy Railway Station<br/>Convenient access via NH 66</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Single smart map button -->
-      <button class="smart-map-btn" onclick="smartDirections()">
-        <div class="smb-icon">📍</div>
-        <div class="smb-text">
-          <strong>Get Directions</strong>
-          <small>Opens in your preferred maps app</small>
-        </div>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="margin-left:auto;opacity:.5">
-          <path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
+    <div class="venue-header reveal">
+      <span class="section-label" style="display:block;text-align:center;">Find Your Way</span>
+      <h2 class="section-title" style="text-align:center;">Location &amp; Route Guide</h2>
+      <div class="divider-line divider-center"></div>
+      <p style="color:var(--g500);font-size:14px;max-width:560px;margin:0 auto;">
+        Interactive navigation, live Google Map, and road reference diagram to help you reach ELAF effortlessly.
+      </p>
     </div>
 
-    <!-- Map panel -->
-    <div class="map-panel reveal" style="transition-delay:.1s">
-      <div style="background:#E8EDEB;position:relative;">
-        <svg viewBox="0 0 500 400" fill="none" width="100%" style="display:block">
-          <rect width="500" height="400" fill="#E8EDEB"/>
-          <!-- Sea -->
-          <path d="M0 0L82 0L64 60L52 120L46 180L50 230L45 280L52 340L56 400L0 400Z" fill="#C5D5D2" opacity=".6"/>
-          <text x="22" y="200" fill="#8FAEAB" font-size="8" font-family="sans-serif" transform="rotate(-90,22,200)" letter-spacing="2" text-anchor="middle" opacity=".65">ARABIAN SEA</text>
-          <!-- Main road -->
-          <path d="M82 192L444 192" stroke="#BFC6C2" stroke-width="13" stroke-linecap="round"/>
-          <path d="M82 192L444 192" stroke="white" stroke-width="2" stroke-dasharray="20 14" stroke-linecap="round"/>
-          <text x="260" y="184" fill="#8A9890" font-size="8.5" font-family="sans-serif" text-anchor="middle" letter-spacing="1">NH 66 · KOYILANDY</text>
-          <!-- Vertical road -->
-          <path d="M242 75L242 325" stroke="#CACED0" stroke-width="8" stroke-linecap="round"/>
-          <path d="M242 75L242 325" stroke="white" stroke-width="1.5" stroke-dasharray="12 10"/>
-          <!-- Cross streets -->
-          <path d="M140 100L140 310" stroke="#D6DAD8" stroke-width="4" opacity=".8"/>
-          <path d="M345 100L345 310" stroke="#D6DAD8" stroke-width="4" opacity=".8"/>
-          <path d="M82 268L444 268" stroke="#D6DAD8" stroke-width="4" opacity=".8"/>
-          <path d="M82 128L444 128" stroke="#D6DAD8" stroke-width="4" opacity=".8"/>
-          <!-- Roundabout -->
-          <circle cx="242" cy="192" r="18" fill="#D2D9D6" stroke="white" stroke-width="2"/>
-          <circle cx="242" cy="192" r="8" fill="#C4CECC"/>
-          <!-- Buildings -->
-          <rect x="100" y="142" width="28" height="20" rx="2" fill="#C8D1CE" opacity=".75"/>
-          <rect x="143" y="142" width="40" height="20" rx="2" fill="#C8D1CE" opacity=".7"/>
-          <rect x="100" y="202" width="52" height="24" rx="2" fill="#C3CCCA" opacity=".65"/>
-          <rect x="167" y="202" width="30" height="24" rx="2" fill="#C8D1CE" opacity=".65"/>
-          <rect x="263" y="142" width="36" height="20" rx="2" fill="#C8D1CE" opacity=".7"/>
-          <rect x="313" y="142" width="42" height="20" rx="2" fill="#C8D1CE" opacity=".7"/>
-          <rect x="263" y="202" width="58" height="24" rx="2" fill="#C3CCCA" opacity=".65"/>
-          <rect x="345" y="202" width="45" height="24" rx="2" fill="#C8D1CE" opacity=".65"/>
-          <rect x="100" y="274" width="44" height="22" rx="2" fill="#C8D1CE" opacity=".7"/>
-          <rect x="263" y="274" width="52" height="22" rx="2" fill="#C8D1CE" opacity=".65"/>
-          <rect x="333" y="274" width="58" height="22" rx="2" fill="#C3CCCA" opacity=".65"/>
-          <!-- Park -->
-          <rect x="156" y="274" width="68" height="38" rx="4" fill="#B4CCB8" opacity=".55"/>
-          <text x="190" y="297" fill="#6B9890" font-size="8" font-family="sans-serif" text-anchor="middle" letter-spacing=".8">PARK</text>
-          <!-- PIN at intersection -->
-          <g transform="translate(242,145)">
-            <ellipse cx="0" cy="43" rx="9" ry="3.5" fill="rgba(0,0,0,.12)"/>
-            <path d="M0-2 C-13-2-13 20 0 20 C13 20 13-2 0-2Z" fill="#4A7068"/>
-            <path d="M0 20L0 42" stroke="#4A7068" stroke-width="3" stroke-linecap="round"/>
-            <circle cx="0" cy="9" r="5" fill="white" opacity=".9"/>
-            <circle cx="0" cy="9" r="11" stroke="#6B9690" stroke-width="1.4" fill="none" opacity=".45">
-              <animate attributeName="r" from="11" to="20" dur="2s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" from=".5" to="0" dur="2s" repeatCount="indefinite"/>
-            </circle>
-          </g>
-          <!-- Callout -->
-          <rect x="264" y="124" width="136" height="38" rx="8" fill="white" opacity=".95"/>
-          <text x="332" y="140" fill="#0A0A0A" font-size="10" font-family="sans-serif" font-weight="600" text-anchor="middle">Shaheer's Residence</text>
-          <text x="332" y="155" fill="#6B9690" font-size="9" font-family="sans-serif" text-anchor="middle">Koyilandy, Kozhikode</text>
-          <!-- Compass -->
-          <g transform="translate(452,52)">
-            <circle cx="0" cy="0" r="19" fill="white" opacity=".82"/>
-            <text x="0" y="-6" fill="#4A7068" font-size="9" font-family="sans-serif" text-anchor="middle" font-weight="700">N</text>
-            <line x1="0" y1="-13" x2="0" y2="13" stroke="#4A7068" stroke-width="1" opacity=".35"/>
-            <line x1="-13" y1="0" x2="13" y2="0" stroke="#4A7068" stroke-width="1" opacity=".35"/>
-            <circle cx="0" cy="0" r="3" fill="#6B9690"/>
-          </g>
-        </svg>
-        <div class="map-badge">
-          <div class="pin-dot"></div>
+    <div class="venue-split">
+      <!-- Address & Map Action Options -->
+      <div class="venue-info-card reveal">
+        <div class="addr-block">
+          <div class="addr-row">
+            <div class="addr-icon">🏠</div>
+            <div class="addr-text">
+              <strong>ELAF</strong>
+              <span>Moodadi Kandy House, Hill Bazar<br/>Moodady North, Koyilandy<br/>Kozhikode District, Kerala</span>
+            </div>
+          </div>
+
+          <div class="addr-row">
+            <div class="addr-icon">🕙</div>
+            <div class="addr-text">
+              <strong>Ceremony Time</strong>
+              <span>Evening 4:00 PM to 9:00 PM<br/>Saturday, 05 December 2026</span>
+            </div>
+          </div>
+
+          <div class="addr-row">
+            <div class="addr-icon">🛣️</div>
+            <div class="addr-text">
+              <strong>Highway Route</strong>
+              <span>From NH 66 (Koyilandy–Vadakara highway):<br/>Turn toward Moodadi North &rarr; Hill Bazar</span>
+            </div>
+          </div>
+
+          <div class="addr-row">
+            <div class="addr-icon">🚆</div>
+            <div class="addr-text">
+              <strong>Transit Landmarks</strong>
+              <span>5 min from Moodadi Railway Station<br/>10 min from Koyilandy Town &amp; Railway Station</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coordinates Box with Copy Button -->
+        <div class="coord-box">
           <div>
-            <div style="font-weight:600;font-size:12px;">Shaheer's Residence</div>
-            <div style="font-size:10px;color:var(--g500);margin-top:1px;">Koyilandy, Kozhikode</div>
+            <div class="coord-label">GPS Coordinates</div>
+            <div class="coord-val" id="coord-text">11.4752537, 75.6596918</div>
+          </div>
+          <button class="copy-btn" onclick="copyCoords()">Copy GPS</button>
+        </div>
+
+        <!-- Comprehensive Map Actions for All Devices -->
+        <div class="map-actions-group">
+          <!-- Primary Smart Button (Device aware) -->
+          <button class="map-action-btn primary" onclick="smartDirections()">
+            <span>🧭</span>
+            <div style="text-align:left;flex:1;">
+              <div>Smart Navigation</div>
+              <small style="opacity:0.6;font-size:11px;font-weight:400;">Auto-opens your device's native GPS app</small>
+            </div>
+            <span>&rarr;</span>
+          </button>
+
+          <!-- Direct Google Maps -->
+          <a href="https://www.google.com/maps?q=11.4752537,75.6596918&z=17&hl=en" target="_blank" class="map-action-btn secondary">
+            <span>🗺️</span>
+            <span>Open in Google Maps</span>
+            <span style="margin-left:auto;opacity:0.4;">↗</span>
+          </a>
+
+          <!-- Google Maps Navigation / Directions -->
+          <a href="https://www.google.com/maps/dir/?api=1&destination=11.4752537,75.6596918" target="_blank" class="map-action-btn secondary">
+            <span>🚗</span>
+            <span>Start Driving Directions</span>
+            <span style="margin-left:auto;opacity:0.4;">↗</span>
+          </a>
+
+          <!-- Apple Maps Direct -->
+          <a href="https://maps.apple.com/?q=ELAF+-+Shaheer+MK&ll=11.4752537,75.6596918" target="_blank" class="map-action-btn secondary">
+            <span>🍏</span>
+            <span>Open in Apple Maps</span>
+            <span style="margin-left:auto;opacity:0.4;">↗</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Map Views with Tabs -->
+      <div class="reveal" style="transition-delay:.1s">
+        <div class="map-tabs">
+          <button class="map-tab-btn active" id="tab-live" onclick="switchMap('live')">📍 Live Google Map</button>
+          <button class="map-tab-btn" id="tab-route" onclick="switchMap('route')">🗺️ Route Landmark Diagram</button>
+        </div>
+
+        <div class="map-view-container">
+          <!-- Live Embedded Google Map -->
+          <div class="map-view-panel active" id="panel-live">
+            <iframe
+              class="gmap-frame"
+              src="https://maps.google.com/maps?q=11.4752537,75.6596918&t=&z=16&ie=UTF8&iwloc=&output=embed"
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Google Map location of ELAF">
+            </iframe>
+          </div>
+
+          <!-- Illustrated SVG Route Diagram -->
+          <div class="map-view-panel" id="panel-route">
+            <div class="svg-map-wrapper">
+              <svg viewBox="0 0 520 440" fill="none" width="100%" style="display:block">
+                <!-- Background -->
+                <rect width="520" height="440" fill="#E8EFEA"/>
+
+                <!-- Arabian Sea coastline on West -->
+                <path d="M0 0 L90 0 L75 80 L62 160 L54 240 L60 320 L52 400 L50 440 L0 440 Z" fill="#C0D5D1" opacity=".7"/>
+                <text x="26" y="220" fill="#6A8F8A" font-size="9" font-family="sans-serif" transform="rotate(-90,26,220)" letter-spacing="3" text-anchor="middle" font-weight="600">ARABIAN SEA</text>
+
+                <!-- Railway track parallel to coast -->
+                <path d="M100 0 L86 160 L80 320 L76 440" stroke="#88928E" stroke-width="3" stroke-dasharray="6 4"/>
+                <text x="74" y="90" fill="#6F7A76" font-size="7.5" font-family="sans-serif" transform="rotate(-88,74,90)" letter-spacing="1">RAILWAY LINE</text>
+
+                <!-- Moodadi Railway Station -->
+                <rect x="70" y="270" width="30" height="14" rx="2" fill="#3E6862"/>
+                <text x="85" y="280" fill="white" font-size="6.5" font-family="sans-serif" text-anchor="middle" font-weight="bold">STN</text>
+                <text x="110" y="281" fill="#3B4240" font-size="8" font-family="sans-serif" font-weight="600">Moodadi Stn</text>
+
+                <!-- Main NH 66 Highway (North to South) -->
+                <path d="M210 0 L200 160 L194 320 L190 440" stroke="#A8B2AE" stroke-width="14" stroke-linecap="round"/>
+                <path d="M210 0 L200 160 L194 320 L190 440" stroke="white" stroke-width="2" stroke-dasharray="20 14"/>
+                <text x="214" y="60" fill="#3B4240" font-size="9" font-family="sans-serif" font-weight="bold" transform="rotate(86,214,60)" letter-spacing="1">NATIONAL HIGHWAY 66 (NH 66)</text>
+                <text x="175" y="20" fill="#64706D" font-size="8" font-family="sans-serif">&larr; To Vadakara</text>
+                <text x="165" y="425" fill="#64706D" font-size="8" font-family="sans-serif">To Koyilandy &rarr;</text>
+
+                <!-- Junction at Moodadi North -->
+                <circle cx="199" cy="180" r="16" fill="#D3DDD8" stroke="white" stroke-width="2"/>
+                <text x="199" y="160" fill="#1A1D1C" font-size="8.5" font-family="sans-serif" font-weight="700" text-anchor="middle">Moodadi North Junction</text>
+
+                <!-- Hill Bazar Road branching off East toward ELAF -->
+                <path d="M199 180 Q290 190 350 200" stroke="#CBD5D0" stroke-width="8" stroke-linecap="round"/>
+                <path d="M199 180 Q290 190 350 200" stroke="white" stroke-width="1.5" stroke-dasharray="10 8"/>
+                <text x="270" y="180" fill="#5E8B84" font-size="8.5" font-family="sans-serif" font-weight="600">Hill Bazar Road &rarr;</text>
+
+                <!-- Internal link to Moodadi Kandy House -->
+                <path d="M350 200 L370 230" stroke="#CBD5D0" stroke-width="6" stroke-linecap="round"/>
+
+                <!-- Neighborhood blocks -->
+                <rect x="230" y="90" width="46" height="26" rx="3" fill="#C4D1CB" opacity=".7"/>
+                <rect x="290" y="90" width="50" height="26" rx="3" fill="#C4D1CB" opacity=".7"/>
+                <rect x="230" y="220" width="55" height="30" rx="3" fill="#C4D1CB" opacity=".7"/>
+                <rect x="300" y="230" width="48" height="28" rx="3" fill="#BDC8C3" opacity=".8"/>
+                <rect x="400" y="160" width="60" height="35" rx="3" fill="#C4D1CB" opacity=".7"/>
+
+                <!-- Hill Bazar center area label -->
+                <circle cx="340" cy="130" r="24" fill="#D8E2DD" stroke="#5E8B84" stroke-width="1" stroke-dasharray="3 3"/>
+                <text x="340" y="128" fill="#3E6862" font-size="8" font-family="sans-serif" font-weight="bold" text-anchor="middle">HILL BAZAR</text>
+                <text x="340" y="138" fill="#64706D" font-size="7" font-family="sans-serif" text-anchor="middle">Moodadi North</text>
+
+                <!-- PIN at ELAF (11.4752537, 75.6596918) -->
+                <g transform="translate(370,225)">
+                  <!-- Pulse ring -->
+                  <circle cx="0" cy="10" r="14" stroke="#5E8B84" stroke-width="1.8" fill="none" opacity=".5">
+                    <animate attributeName="r" from="12" to="24" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" from=".6" to="0" dur="2s" repeatCount="indefinite"/>
+                  </circle>
+                  <ellipse cx="0" cy="40" rx="10" ry="4" fill="rgba(0,0,0,.15)"/>
+                  <path d="M0-4 C-14-4 -14 20 0 20 C14 20 14 -4 0 -4 Z" fill="#3E6862"/>
+                  <path d="M0 20 L0 39" stroke="#3E6862" stroke-width="3.5" stroke-linecap="round"/>
+                  <circle cx="0" cy="7" r="5.5" fill="white"/>
+                  <circle cx="0" cy="7" r="2.5" fill="#3E6862"/>
+                </g>
+
+                <!-- Callout Box for ELAF -->
+                <rect x="290" y="278" width="180" height="46" rx="8" fill="white" filter="url(#shadow)"/>
+                <text x="380" y="296" fill="#0C0E0D" font-size="11" font-family="Georgia, serif" font-weight="bold" text-anchor="middle">ELAF</text>
+                <text x="380" y="312" fill="#5E8B84" font-size="8.5" font-family="sans-serif" text-anchor="middle">Moodadi Kandy House · Hill Bazar</text>
+
+                <!-- Compass -->
+                <g transform="translate(470,45)">
+                  <circle cx="0" cy="0" r="18" fill="white" opacity=".9"/>
+                  <text x="0" y="-5" fill="#3E6862" font-size="9" font-family="sans-serif" text-anchor="middle" font-weight="bold">N</text>
+                  <line x1="0" y1="-12" x2="0" y2="12" stroke="#3E6862" stroke-width="1.2" opacity=".4"/>
+                  <line x1="-12" y1="0" x2="12" y2="0" stroke="#3E6862" stroke-width="1.2" opacity=".4"/>
+                  <circle cx="0" cy="0" r="3" fill="#5E8B84"/>
+                </g>
+
+                <defs>
+                  <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+                    <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.12"/>
+                  </filter>
+                </defs>
+              </svg>
+
+              <div class="map-pin-badge">
+                <div class="pin-dot"></div>
+                <div>
+                  <div style="font-weight:700;font-size:12px;">ELAF</div>
+                  <div style="font-size:10px;color:var(--g500);">Moodadi North · Hill Bazar</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </section>
 
 <!-- RSVP -->
 <section id="rsvp">
   <div class="rsvp-inner">
-    <span class="section-label" style="display:flex;justify-content:center;">Join the Celebration</span>
-    <h2 class="section-title reveal">We'd Love<br/>to See You There</h2>
+    <span class="section-label">Honoured Presence</span>
+    <h2 class="section-title reveal">We Look Forward<br/>to Welcoming You</h2>
     <div class="divider-line divider-center reveal"></div>
     <p class="rsvp-sub reveal" style="transition-delay:.08s">
-      Please let us know you're coming so we can give you a warm welcome.
-      Reach out directly — we'd love to hear from you.
+      Please contact us for any assistance with directions or arrangements.
+      We eagerly await celebrating our special milestone with you.
     </p>
+
+    <!-- Contacts list with all 3 numbers -->
     <div class="rsvp-contacts reveal" style="transition-delay:.12s">
+      <!-- Adv. Shaheer MK -->
       <a href="tel:+919961612861" class="rsvp-row">
         <div class="rsvp-icon">📞</div>
         <div class="rsvp-info">
-          <div class="rsvp-name">Shaheer MK</div>
+          <div class="rsvp-name">Mr. Adv. Shaheer M K</div>
           <div class="rsvp-num">+91 99616 12861</div>
         </div>
-        <span style="color:rgba(255,255,255,.25);font-size:20px;">›</span>
+        <span style="color:rgba(255,255,255,.3);font-size:20px;">›</span>
       </a>
+
+      <!-- Second Contact (from PDF) -->
       <a href="tel:+919946604454" class="rsvp-row">
         <div class="rsvp-icon">📱</div>
         <div class="rsvp-info">
-          <div class="rsvp-name">Family Contact</div>
+          <div class="rsvp-name">Contact / Reception</div>
           <div class="rsvp-num">+91 99466 04454</div>
         </div>
-        <span style="color:rgba(255,255,255,.25);font-size:20px;">›</span>
+        <span style="color:rgba(255,255,255,.3);font-size:20px;">›</span>
+      </a>
+
+      <!-- Third Contact (from PDF) -->
+      <a href="tel:+919846699142" class="rsvp-row">
+        <div class="rsvp-icon">📱</div>
+        <div class="rsvp-info">
+          <div class="rsvp-name">Family Contact</div>
+          <div class="rsvp-num">+91 98466 99142</div>
+        </div>
+        <span style="color:rgba(255,255,255,.3);font-size:20px;">›</span>
       </a>
     </div>
-    <a href="https://wa.me/919961612861?text=We+will+attend+the+Housewarming+on+5+Dec+2026!" target="_blank" class="rsvp-wa reveal" style="transition-delay:.16s">
+
+    <!-- WhatsApp RSVP Button -->
+    <a href="https://wa.me/919961612861?text=Dear%20Shaheer,%20we%20will%20joyfully%20attend%20the%20Housewarming%20of%20ELAF%20on%20Saturday,%2005%20Dec%202026!" target="_blank" class="rsvp-wa reveal" style="transition-delay:.16s">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       RSVP on WhatsApp
     </a>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
-  <div class="foot-brand serif">Shaheer <em>&</em> Family — Housewarming 2026</div>
-  <div class="foot-loc">Koyilandy · Kozhikode · Kerala</div>
+  <div class="foot-brand serif">ELAF — Adv. Shaheer M K <em>&amp;</em> Fousiya P</div>
+  <div class="foot-loc">Hill Bazar · Moodady North · Koyilandy · Kozhikode</div>
 </footer>
 
 <script>
-// ── Countdown ─────────────────────────────────────────────
-const target = new Date('2026-12-05T10:00:00+05:30');
+// ── Live Countdown (Target: 05 Dec 2026, 4:00 PM IST) ─────────────
+const target = new Date('2026-12-05T16:00:00+05:30');
+
 function tick(){
   const diff = target - Date.now();
-  if(diff<=0){['cd-d','cd-h','cd-m','cd-s'].forEach(id=>document.getElementById(id).textContent='00');return}
+  if(diff<=0){
+    ['cd-d','cd-h','cd-m','cd-s'].forEach(id=>document.getElementById(id).textContent='00');
+    return;
+  }
   document.getElementById('cd-d').textContent=String(Math.floor(diff/86400000)).padStart(2,'0');
   document.getElementById('cd-h').textContent=String(Math.floor(diff%86400000/3600000)).padStart(2,'0');
   document.getElementById('cd-m').textContent=String(Math.floor(diff%3600000/60000)).padStart(2,'0');
@@ -781,91 +1046,116 @@ function tick(){
 }
 tick(); setInterval(tick,1000);
 
-// ── Scroll reveal ─────────────────────────────────────────
+// ── Intersection Observer for Scroll Animations ────────────────────
 const obs = new IntersectionObserver(entries=>{
   entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
 },{threshold:0.1});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-// ── Smart Calendar ────────────────────────────────────────
-// Auto-detects device:
-//   Android  → Google Calendar (opens in Calendar app)
-//   iOS/Mac  → .ics download (Apple Calendar picks it up)
-//   Desktop  → .ics download (Outlook / Windows / Mac Calendar)
+// ── Smart Calendar ─────────────────────────────────────────────────
 function smartAddCalendar(){
   const ua = navigator.userAgent;
   const isAndroid = /Android/i.test(ua);
 
   if(isAndroid){
-    // Google Calendar URL — Android opens native Calendar app
+    // Google Calendar template with exact times & location
     const url='https://calendar.google.com/calendar/render?action=TEMPLATE'
-      +'&text=Housewarming+%E2%80%94+Shaheer+MK+%26+Family'
-      +'&dates=20261205T043000Z%2F20261205T103000Z'
-      +'&details=You+are+cordially+invited+to+our+Housewarming+celebration!%0AJoin+us+on+5+December+2026.'
-      +'&location=Shaheer%27s+Residence%2C+Koyilandy%2C+Kozhikode%2C+Kerala+673305';
+      +'&text=Housewarming+%E2%80%94+ELAF+%28Adv.+Shaheer+MK+%26+Fousiya+P%29'
+      +'&dates=20261205T103000Z%2F20261205T153000Z'
+      +'&details=Housewarming+ceremony+of+our+new+abode+ELAF.+Evening+from+4.00+PM+to+9.00+PM.+Contacts:+9961612861,+9946604454'
+      +'&location=ELAF%2C+Moodadi+Kandy+House%2C+Hill+Bazar%2C+Moodady+North%2C+Koyilandy%2C+Kozhikode';
     window.open(url,'_blank');
   } else {
-    // iOS, macOS, Windows, Linux → .ics (native Calendar app handles it)
+    // Standard ICS for iOS, macOS, Windows, Outlook
     const ics=[
-      'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Shaheer Housewarming//EN',
+      'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//ELAF Housewarming//EN',
       'CALSCALE:GREGORIAN','METHOD:PUBLISH',
       'BEGIN:VEVENT',
-      'UID:shaheer-housewarming-2026@invitation',
-      'DTSTART:20261205T043000Z',
-      'DTEND:20261205T103000Z',
-      'DTSTAMP:20261114T000000Z',
-      'SUMMARY:Housewarming — Shaheer MK & Family',
-      'DESCRIPTION:You are cordially invited to our Housewarming celebration!\\nJoin us on 5 December 2026.',
-      'LOCATION:Shaheer\'s Residence\\, Koyilandy\\, Kozhikode\\, Kerala 673305',
+      'UID:elaf-housewarming-2026@invitation',
+      'DTSTART:20261205T103000Z',
+      'DTEND:20261205T153000Z',
+      'DTSTAMP:20261115T000000Z',
+      'SUMMARY:Housewarming — ELAF (Adv. Shaheer MK & Fousiya P)',
+      'DESCRIPTION:Housewarming ceremony of our new abode ELAF.\\nEvening from 4:00 PM to 9:00 PM.\\nContacts: 9961612861, 9946604454, 9846699142',
+      'LOCATION:ELAF\\, Moodadi Kandy House\\, Hill Bazar\\, Moodady North\\, Koyilandy\\, Kozhikode',
+      'GEO:11.4752537;75.6596918',
       'STATUS:CONFIRMED',
       'END:VEVENT','END:VCALENDAR'
     ].join('\r\n');
     const blob=new Blob([ics],{type:'text/calendar;charset=utf-8'});
     const url=URL.createObjectURL(blob);
     const a=document.createElement('a');
-    a.href=url; a.download='housewarming-shaheer-5dec2026.ics';
+    a.href=url; a.download='elaf-housewarming-05dec2026.ics';
     document.body.appendChild(a); a.click();
     document.body.removeChild(a); URL.revokeObjectURL(url);
   }
 }
 
-// ── Smart Directions ──────────────────────────────────────
-// Auto-detects device:
-//   iOS          → Apple Maps (native app)
-//   Android      → geo: URI (opens default map app — Google Maps / Maps)
-//   Desktop/other → Google Maps web
-const LAT  = 11.4395;
-const LNG  = 75.6983;
-const ADDR = "Shaheer's Residence, Koyilandy, Kozhikode, Kerala 673305";
+// ── Smart Directions & Coordinates ─────────────────────────────────
+const LAT = 11.4752537;
+const LNG = 75.6596918;
+const VENUE_NAME = "ELAF - Adv Shaheer MK";
 
 function smartDirections(){
   const ua = navigator.userAgent;
-  const isIOS     = /iPad|iPhone|iPod/i.test(ua) && !window.MSStream;
+  const isIOS = /iPad|iPhone|iPod/i.test(ua) && !window.MSStream;
   const isAndroid = /Android/i.test(ua);
 
   if(isIOS){
-    // Opens Apple Maps natively on iPhone / iPad
-    window.location.href = `maps://maps.apple.com/?q=${encodeURIComponent(ADDR)}&ll=${LAT},${LNG}`;
+    window.location.href = `maps://maps.apple.com/?q=${encodeURIComponent(VENUE_NAME)}&ll=${LAT},${LNG}`;
   } else if(isAndroid){
-    // Opens default map app on Android (Google Maps, etc.)
-    window.location.href = `geo:${LAT},${LNG}?q=${encodeURIComponent(ADDR)}`;
+    window.location.href = `geo:${LAT},${LNG}?q=${LAT},${LNG}(${encodeURIComponent(VENUE_NAME)})`;
   } else {
-    // Desktop browser → Google Maps web
-    window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDR)}`,'_blank');
+    window.open(`https://www.google.com/maps?q=${LAT},${LNG}&z=17&hl=en`,'_blank');
   }
 }
 
-// ── Lightbox ──────────────────────────────────────────────
-function openLb(cap){
+function copyCoords(){
+  const coords = "11.4752537, 75.6596918";
+  navigator.clipboard.writeText(coords).then(()=>{
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = "Copied! ✓";
+    btn.style.background = "#3E6862";
+    btn.style.color = "white";
+    setTimeout(()=>{
+      btn.textContent = "Copy GPS";
+      btn.style.background = "";
+      btn.style.color = "";
+    }, 2500);
+  });
+}
+
+function switchMap(mode){
+  const liveTab = document.getElementById('tab-live');
+  const routeTab = document.getElementById('tab-route');
+  const livePanel = document.getElementById('panel-live');
+  const routePanel = document.getElementById('panel-route');
+
+  if(mode === 'live'){
+    liveTab.classList.add('active');
+    routeTab.classList.remove('active');
+    livePanel.classList.add('active');
+    routePanel.classList.remove('active');
+  } else {
+    routeTab.classList.add('active');
+    liveTab.classList.remove('active');
+    routePanel.classList.add('active');
+    livePanel.classList.remove('active');
+  }
+}
+
+// ── Lightbox ───────────────────────────────────────────────────────
+function openLb(src, cap){
   document.getElementById('lb').classList.add('open');
-  document.getElementById('lb-cap').textContent=cap;
-  document.body.style.overflow='hidden';
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb-cap').innerHTML = cap;
+  document.body.style.overflow = 'hidden';
 }
 function closeLb(){
   document.getElementById('lb').classList.remove('open');
-  document.body.style.overflow='';
+  document.body.style.overflow = '';
 }
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb()});
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeLb(); });
 </script>
 </body>
 </html>
