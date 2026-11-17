@@ -31,8 +31,8 @@ Open `index.html` in any browser — no build step needed. Pure HTML + CSS + Jav
 - **Host:** Adv. Krishnakumar Menon & Family
 - **Date:** Sunday, 30 November 2026
 - **Muhurtham:** 6:15 AM — Karthika Nakshatra
-- **Venue:** "Menon Bhavanam", Thondayad–Mavoor Road, Kozhikode – 673017, Kerala
-- **Contact:** +91 98470 00001
+- **Venue:** "Menon Bhavanam", Abcd Road, Kozhikode – 673000, Kerala
+- **Contact:** +91 98470 00000
 
 ## 🛠️ Customization
 
